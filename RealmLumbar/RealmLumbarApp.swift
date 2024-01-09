@@ -1,0 +1,17 @@
+//
+//  RealmLumbarApp.swift
+//  RealmLumbar
+//
+//  Created by Warren Hansen on 1/9/24.
+//
+
+import SwiftUI
+
+@main
+struct RealmLumbarApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
