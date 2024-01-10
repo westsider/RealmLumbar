@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986720CC2B4EFFB900745B7A /* LumbarRow.swift */; };
 		986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */; };
 		986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */; };
 		986DAABD2B4DEAC500C3B7D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		986720CC2B4EFFB900745B7A /* LumbarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumbarRow.swift; sourceTree = "<group>"; };
 		986DAAB52B4DEAC400C3B7D5 /* RealmLumbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmLumbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLumbarApp.swift; sourceTree = "<group>"; };
 		986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */,
 				986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */,
 				986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */,
+				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
 				986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */,
 				986DAABE2B4DEAC500C3B7D5 /* Preview Content */,
@@ -158,6 +161,7 @@
 				986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */,
 				986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */,
 				986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */,
+				986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +303,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,6 +333,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
