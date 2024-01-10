@@ -9,81 +9,66 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
-    
-    @ObservedResults(ShoppingList.self) var shoppingLists
-    @State private var isPresented: Bool = false
-    
+
+    @ObservedResults(LumbarList.self) var lumbarList
     
     var body: some View {
         NavigationView {
             
             VStack {
-                if shoppingLists.isEmpty {
-                    Text("Shopping List is Empty")
+                if lumbarList.isEmpty {
+                    Text("Lumbar List is Empty")
                 }
-                
                 List {
-                    ForEach(shoppingLists, id: \.id) { shoppingList in
-//                        VStack(alignment: .leading) {
-//                            Text(shoppingList.title)
-//                            Text(shoppingList.address)
-//                                .opacity(0.4)
-//                        }
-                        LumbarRow(id: shoppingList.id)
-                        
+                    ForEach(lumbarList, id: \.id) { lumbar in
+                        LumbarRow(id: lumbar.id)
                     }
-                }.navigationTitle("Grocery App")
+                }.navigationTitle("RJB SF")
                 Button("CLEAR ALL") {
                     deleteRealm()
+                    generateLumbatListDefaults()
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // action
-                        //isPresented = true
-                        newObject()
+                        newLumbarObject()
                     } label: {
                         Image(systemName: "plus")
                     }
                     
                 }
             }.onAppear() {
-                if shoppingLists.isEmpty {
-                        generateDefaultObjecs()
+                if lumbarList.isEmpty {
+                        generateLumbatListDefaults()
                 }
             }
             
         }
     }
     
-    func generateDefaultObjecs()  {
-        let retrievedObject = ShoppingList()
-        retrievedObject.title = "Gen 1"
-        retrievedObject.address = "123 lax blvd"
-        $shoppingLists.append(retrievedObject)
-        
-        let retrievedObject2 = ShoppingList()
-        retrievedObject2.title = "Gen 2"
-        retrievedObject2.address = "911 n mill st"
-        $shoppingLists.append(retrievedObject2)
-    }
-    
-    func newObject()  {
-        let retrievedObject = ShoppingList()
+    func generateLumbatListDefaults()  {
+        let retrievedObject = LumbarList()
         retrievedObject.title = "L 1"
-        retrievedObject.address = "123 lax blvd"
-        $shoppingLists.append(retrievedObject)
+        retrievedObject.axial = 5.0
+        retrievedObject.sagital = 10.0
+        $lumbarList.append(retrievedObject)
+        
+        let retrievedObject2 = LumbarList()
+        retrievedObject2.title = "L 2"
+        retrievedObject2.axial = 20.0
+        retrievedObject2.sagital = 25.0
+        $lumbarList.append(retrievedObject2)
     }
     
-    private func showItems() {
-//        ForEach(shoppingLists, id: \.id) { shoppingList in
-//            Text(shoppingList.title)
-//            Text(shoppingList.id)
-//        }
-//        ForEach(shoppingLists) { list in
-//            print(list.id)
-//        }
+    func newLumbarObject()  {
+        let num = lumbarList.count + 1
+        let retrievedObject = LumbarList()
+        retrievedObject.title = "L \(num)"
+        retrievedObject.axial = 10.0
+        retrievedObject.sagital = 10.0
+        $lumbarList.append(retrievedObject)
+        
     }
     
     private func deleteRealm() {
@@ -91,7 +76,7 @@ struct ContentView: View {
         try! realm.write {
             realm.deleteAll()
         }
-        generateDefaultObjecs()
+        //generateLumbatListDefaults()
     }
 }
 
