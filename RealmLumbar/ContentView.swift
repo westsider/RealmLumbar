@@ -21,9 +21,7 @@ struct ContentView: View {
                 if shoppingLists.isEmpty {
                     Text("Shopping List is Empty")
                 }
-                Button("Delete Realm") {
-                    deleteRealm()
-                }
+                
                 List {
                     ForEach(shoppingLists, id: \.id) { shoppingList in
 //                        VStack(alignment: .leading) {
@@ -35,15 +33,16 @@ struct ContentView: View {
                         
                     }
                 }.navigationTitle("Grocery App")
+                Button("CLEAR ALL") {
+                    deleteRealm()
+                }
             }
-            .sheet(isPresented: $isPresented, content: {
-                AddShoppingListScreen()
-            })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         // action
-                        isPresented = true
+                        //isPresented = true
+                        newObject()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -68,6 +67,13 @@ struct ContentView: View {
         retrievedObject2.title = "Gen 2"
         retrievedObject2.address = "911 n mill st"
         $shoppingLists.append(retrievedObject2)
+    }
+    
+    func newObject()  {
+        let retrievedObject = ShoppingList()
+        retrievedObject.title = "L 1"
+        retrievedObject.address = "123 lax blvd"
+        $shoppingLists.append(retrievedObject)
     }
     
     private func showItems() {

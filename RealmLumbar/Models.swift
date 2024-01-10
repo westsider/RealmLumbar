@@ -34,3 +34,45 @@ class ShoppingItem: Object, Identifiable {
     }
     
 }
+
+// geneate a lumbar item
+
+class LumbarList: Object, Identifiable {
+    
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var title: String
+    @Persisted var axial: Double
+    @Persisted var sagital: Double
+    @Persisted var leftSelected: Bool
+    
+    override class func primaryKey() -> String? {
+        "id"
+    }
+    
+}
+
+class Utilities {
+    
+    static func getDoubleFrom(string: String) -> Double {
+        var answer = 0.0
+    
+        var trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if trimmed.prefix(1) == "+" {
+            trimmed = String(trimmed.dropFirst())
+        }
+       
+        
+        if let  answer2 = Double(trimmed) {
+           // print("got \(string) -> \(answer2)")
+            answer = answer2
+        }
+        
+        return answer
+    }
+    
+    static func oneDecimal(fromDouble: Double) -> String {
+        
+        String(format: "%.01f", fromDouble)
+    }
+}

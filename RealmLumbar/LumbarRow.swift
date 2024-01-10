@@ -8,6 +8,109 @@
 import SwiftUI
 import RealmSwift
 
+struct LumbarRow2: View {
+    
+    var id: ObjectId
+    var listObject: LumbarList {
+        return getObject()
+    }
+    
+    // textfeild vars
+    @State private var lumabeName: String = ""
+    @State private var axial: String = ""
+    @State private var saggital: String = ""
+    @FocusState private var focusI: Bool
+    @FocusState private var focusS: Bool
+    @FocusState private var focusA: Bool
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                TextField("name", text: $lumabeName)
+                    .focused($focusI)
+                    .onChange(of: focusI) { focused in
+                        if focused {
+                            lumabeName = ""
+                        } else {
+                            // persist name
+                            persistObject()
+                        }
+                    }
+                    .onAppear() {
+                        lumabeName = listObject.title
+                    }
+                Spacer()
+                //Text("\(listObject.address)")
+                TextField("axial", text: $axial)
+                    .focused($focusA)
+                    .onChange(of: focusA) { focused in
+                        if focused {
+                            axial = ""
+                        } else {
+                            // persist name
+                            persistObject()
+                        }
+                    }
+                    .onAppear() {
+                        axial = "\(listObject.axial)"
+                    }
+                Spacer()
+                //Text("\(listObject.address)")
+                TextField("sagital", text: $saggital)
+                    .focused($focusS)
+                    .onChange(of: focusS) { focused in
+                        if focused {
+                            saggital = ""
+                        } else {
+                            // persist name
+                            persistObject()
+                        }
+                    }
+                    .onAppear() {
+                        saggital = "\(listObject.sagital)"
+                    }
+                Spacer()
+            }
+        }
+    }
+    
+    private func persistObject() {
+        do {
+            let realm = try Realm()
+            let object = getObject()
+            try realm.write {
+                object.title = lumabeName
+                object.axial = Utilities.getDoubleFrom(string: axial)
+                object.sagital = Utilities.getDoubleFrom(string: saggital)
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    private func getObject() -> LumbarList {
+        var retrievedObject = LumbarList()
+        retrievedObject.title = "L1"
+        retrievedObject.axial = 1.0
+        retrievedObject.sagital = 1.0
+        retrievedObject.leftSelected = true
+        
+        do {
+            let realm = try Realm()
+            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {
+                return retrievedObject
+            }
+            retrievedObject = objectFiltered
+        }
+        catch {
+            print(error)
+        }
+        return retrievedObject
+    }
+}
+
 struct LumbarRow: View {
     
     var id: ObjectId
@@ -90,7 +193,6 @@ struct LumbarRow: View {
         return retrievedObject
     }
 }
-
 #Preview {
-    LumbarRow(id: ObjectId())
+    LumbarRow2(id: ObjectId())
 }
