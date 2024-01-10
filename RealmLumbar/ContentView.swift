@@ -3,7 +3,18 @@
 //  RealmLumbar
 //
 //  Created by Warren Hansen on 1/9/24.
-//
+
+//  Add left right
+//  selected row is colored
+//  add a crosshair struct to set how its updated
+
+//  how do I pass selected row to crosshair? can I send the id?
+//  how do I pass in hold and offset?
+
+//  future
+//  how do I know what data stream is selected? need a var for selectedUUID
+//  how do I set hold or offset? need a var somewhere for offsetOn, hold on
+
 
 import SwiftUI
 import RealmSwift
@@ -16,34 +27,45 @@ struct ContentView: View {
         NavigationView {
             
             VStack {
-                if lumbarList.isEmpty {
-                    Text("Lumbar List is Empty")
-                }
-                List {
-                    ForEach(lumbarList, id: \.id) { lumbar in
-                        LumbarRow(id: lumbar.id)
+                HStack {
+                    Spacer(minLength: 100)
+                    Text(" ")
+                    Spacer()
+                    Text("AX").bold()
+                    Spacer()
+                    Text("SG").foregroundStyle(.gray)
+                    Spacer()
+                }.offset(x: -30, y: 0)
+                VStack {
+                    if lumbarList.isEmpty {
+                        Text("Lumbar List is Empty")
                     }
-                }.navigationTitle("RJB SF")
-                Button("CLEAR ALL") {
-                    deleteRealm()
-                    generateLumbatListDefaults()
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        newLumbarObject()
-                    } label: {
-                        Image(systemName: "plus")
+                    List {
+                        ForEach(lumbarList, id: \.id) { lumbar in
+                            LumbarRow(id: lumbar.id)
+                        }
                     }
-                    
-                }
-            }.onAppear() {
-                if lumbarList.isEmpty {
+                    .scrollContentBackground(.hidden).padding(.top, -25)
+                    Button("CLEAR ALL") {
+                        deleteRealm()
                         generateLumbatListDefaults()
+                    }
                 }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            newLumbarObject()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        
+                    }
+                }.onAppear() {
+                    if lumbarList.isEmpty {
+                            generateLumbatListDefaults()
+                    }
             }
-            
+            }
         }
     }
     
@@ -76,7 +98,6 @@ struct ContentView: View {
         try! realm.write {
             realm.deleteAll()
         }
-        //generateLumbatListDefaults()
     }
 }
 
