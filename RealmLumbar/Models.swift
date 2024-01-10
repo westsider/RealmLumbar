@@ -7,6 +7,8 @@
 
 import Foundation
 import RealmSwift
+import UIKit
+import SwiftUI
 
 //class ShoppingList: Object, Identifiable {
 //    
@@ -74,5 +76,27 @@ class Utilities {
     static func oneDecimal(fromDouble: Double) -> String {
         
         String(format: "%.01f", fromDouble)
+    }
+}
+
+extension Binding where Value == Bool {
+    // nagative bool binding same as `!Value`
+    var not: Binding<Value> {
+        Binding<Value> (
+            get: { !self.wrappedValue },
+            set: { self.wrappedValue = $0}
+        )
+    }
+}
+
+// limit charaters in swiftui textfeild
+extension Binding where Value == String {
+    func max(_ limit: Int) -> Self {
+        if self.wrappedValue.count > limit {
+            DispatchQueue.main.async {
+                self.wrappedValue = String(self.wrappedValue.dropLast())
+            }
+        }
+        return self
     }
 }

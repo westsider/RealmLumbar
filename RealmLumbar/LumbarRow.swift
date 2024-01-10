@@ -27,7 +27,7 @@ struct LumbarRow: View {
         VStack {
             HStack {
                 Spacer()
-                TextField("name", text: $lumabeName)
+                TextField("2 char", text: $lumabeName.max(2))
                     .focused($focusI)
                     .onChange(of: focusI) { focused in
                         if focused {
@@ -54,7 +54,7 @@ struct LumbarRow: View {
                     }
                     .onAppear() {
                         axial = "\(listObject.axial)"
-                    }
+                    }.bold()
                 Spacer()
                 //Text("\(listObject.address)")
                 TextField("sagital", text: $saggital)
@@ -69,7 +69,7 @@ struct LumbarRow: View {
                     }
                     .onAppear() {
                         saggital = "\(listObject.sagital)"
-                    }
+                    }.foregroundStyle(.black.opacity(0.5))
                 Spacer()
             }
         }
@@ -109,6 +109,10 @@ struct LumbarRow: View {
         }
         return retrievedObject
     }
+}
+
+#Preview {
+    LumbarRow(id: ObjectId())
 }
 
 //struct LumbarRow: View {

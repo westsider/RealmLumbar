@@ -20,7 +20,7 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
-
+    
     @ObservedResults(LumbarList.self) var lumbarList
     
     var body: some View {
@@ -50,6 +50,7 @@ struct ContentView: View {
                         deleteRealm()
                         generateLumbatListDefaults()
                     }
+                    
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -62,22 +63,23 @@ struct ContentView: View {
                     }
                 }.onAppear() {
                     if lumbarList.isEmpty {
-                            generateLumbatListDefaults()
+                        generateLumbatListDefaults()
                     }
-            }
+                }
+                
             }
         }
     }
     
     func generateLumbatListDefaults()  {
         let retrievedObject = LumbarList()
-        retrievedObject.title = "L 1"
+        retrievedObject.title = "L1"
         retrievedObject.axial = 5.0
         retrievedObject.sagital = 10.0
         $lumbarList.append(retrievedObject)
         
         let retrievedObject2 = LumbarList()
-        retrievedObject2.title = "L 2"
+        retrievedObject2.title = "L2"
         retrievedObject2.axial = 20.0
         retrievedObject2.sagital = 25.0
         $lumbarList.append(retrievedObject2)
@@ -86,7 +88,7 @@ struct ContentView: View {
     func newLumbarObject()  {
         let num = lumbarList.count + 1
         let retrievedObject = LumbarList()
-        retrievedObject.title = "L \(num)"
+        retrievedObject.title = "L\(num)"
         retrievedObject.axial = 10.0
         retrievedObject.sagital = 10.0
         $lumbarList.append(retrievedObject)
