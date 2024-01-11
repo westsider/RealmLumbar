@@ -4,7 +4,7 @@
 //
 //  Created by Warren Hansen on 1/9/24.
 
-//  Add left right
+//  [ }Add left right
 //  selected row is colored
 //  add a crosshair struct to set how its updated
 
@@ -46,11 +46,32 @@ struct ContentView: View {
                         }
                     }
                     .scrollContentBackground(.hidden).padding(.top, -25)
-                    Button("CLEAR ALL") {
+                    HStack {
+                        Button {
+                            // save or update the item
+                            
+                        } label: {
+                            Text("LEFT")
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                        }
+                        .buttonStyle(GreyButtonSimple())
+                        Button {
+                            // save or update the item
+                            
+                        } label: {
+                            Text("RIGHT")
+                                .frame(maxWidth: .infinity, maxHeight: 40)
+                        }
+                        .buttonStyle(GreyButtonSimple())
+                    }
+                    Button {
                         deleteRealm()
                         generateLumbatListDefaults()
+                    } label: {
+                        Text("CLEAR ALL")
+                            .frame(maxWidth: .infinity, maxHeight: 40)
                     }
-                    
+                    .buttonStyle(GreyButtonSimple())
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -66,8 +87,7 @@ struct ContentView: View {
                         generateLumbatListDefaults()
                     }
                 }
-                
-            }
+            }.padding()
         }
     }
     
@@ -105,4 +125,16 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct GreyButtonSimple: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .bold()
+            .buttonStyle(.bordered)
+            .background( Color.gray.opacity(0.3))
+            .foregroundColor(.black)
+            .border(Color.gray.opacity(0.3), width: 2)
+            .cornerRadius(5)
+    }
 }
