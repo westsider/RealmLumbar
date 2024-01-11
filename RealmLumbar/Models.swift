@@ -46,6 +46,7 @@ class LumbarList: Object, Identifiable {
     @Persisted var axial: Double
     @Persisted var sagital: Double
     @Persisted var leftSelected: Bool
+    @Persisted var isSelected: Bool
     
     override class func primaryKey() -> String? {
         "id"

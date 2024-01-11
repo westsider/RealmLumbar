@@ -16,6 +16,7 @@
 		986DAACA2B4DEAFD00C3B7D5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 986DAAC92B4DEAFD00C3B7D5 /* RealmSwift */; };
 		986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAACB2B4DEB1800C3B7D5 /* Models.swift */; };
 		986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */; };
+		988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988FE96F2B504D9C00B5A64A /* Migrator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		986DAABF2B4DEAC500C3B7D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		986DAACB2B4DEB1800C3B7D5 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingListScreen.swift; sourceTree = "<group>"; };
+		988FE96F2B504D9C00B5A64A /* Migrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */,
 				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
+				988FE96F2B504D9C00B5A64A /* Migrator.swift */,
 				986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */,
 				986DAABE2B4DEAC500C3B7D5 /* Preview Content */,
 			);
@@ -159,6 +162,7 @@
 			files = (
 				986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */,
 				986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */,
+				988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */,
 				986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */,
 				986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */,
 				986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */,

@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct RealmLumbarApp: App {
+    
+    let migrator = Migrator()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
