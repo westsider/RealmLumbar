@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		982467AC2B50641400BCDFBB /* HighlightRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982467AB2B50641400BCDFBB /* HighlightRow.swift */; };
 		986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986720CC2B4EFFB900745B7A /* LumbarRow.swift */; };
 		986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */; };
 		986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		982467AB2B50641400BCDFBB /* HighlightRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRow.swift; sourceTree = "<group>"; };
 		986720CC2B4EFFB900745B7A /* LumbarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumbarRow.swift; sourceTree = "<group>"; };
 		986DAAB52B4DEAC400C3B7D5 /* RealmLumbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmLumbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLumbarApp.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */,
 				986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */,
 				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
+				982467AB2B50641400BCDFBB /* HighlightRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
 				988FE96F2B504D9C00B5A64A /* Migrator.swift */,
 				986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 			files = (
 				986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */,
 				986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */,
+				982467AC2B50641400BCDFBB /* HighlightRow.swift in Sources */,
 				988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */,
 				986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */,
 				986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */,

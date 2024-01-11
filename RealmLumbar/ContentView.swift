@@ -17,7 +17,12 @@
 //  how do I know what data stream is selected? need a var for selectedUUID
 //  how do I set hold or offset? need a var somewhere for offsetOn, hold on
 
-
+/*
+ Friday
+ Get right working
+ Get selected lumbar persisting
+ Pass that to crosshair
+ */
 import SwiftUI
 import RealmSwift
 
@@ -28,6 +33,7 @@ struct ContentView: View {
     @ObservedResults(LumbarList.self, where: ( { $0.leftSelected == false } )) var lumbarListRight
     
     @State var leftSelected: Bool = true
+    @State private var selectedLumbar: LumbarList?
     
     var body: some View {
         NavigationView {
@@ -45,29 +51,54 @@ struct ContentView: View {
                     if lumbarList.isEmpty {
                         Text("Lumbar List is Empty")
                     }
+                    
                     List {
                         if leftSelected {
-                            ForEach(lumbarListLeft, id: \.id) { lumbar in
-                                LumbarRow(id: lumbar.id)
+                            ForEach(lumbarListLeft, id: \.id) { type in
+                                LumbarRow(id: type.id)
+                                    .onAppear() {
+                                        //selectedLumbar = type
+                                        //updateModelWith(selectedLumbar: selectedLumbar!)
+                                    }
+                                    .contentShape(Rectangle()) //makes whole row tappable
+                                    .onTapGesture {
+                                        selectedLumbar = type
+                                        print("tapped Lombar Row")
+                                    }
+                                    .listRowBackground(selectedLumbar == type ? Color(.systemFill) : Color(.systemBackground))
                             }
-                        } else {
-                            ForEach(lumbarListRight, id: \.id) { lumbar in
-                                LumbarRow(id: lumbar.id)
+                        }
+                        if !leftSelected {
+                            ForEach(lumbarListRight, id: \.id) { type in
+                                LumbarRow(id: type.id)
+                                    .onAppear() {
+                                        //selectedLumbar = type
+                                        //updateModelWith(selectedLumbar: selectedLumbar!)
+                                    }
+                                    .contentShape(Rectangle()) //makes whole row tappable
+                                    .onTapGesture {
+                                        selectedLumbar = type
+                                        print("tapped Lombar Row")
+                                    }
+                                    .listRowBackground(selectedLumbar == type ? Color(.systemFill) : Color(.systemBackground))
                             }
                         }
                     }
+                    .onTapGesture {
+                        print("tapped List \(selectedLumbar)")
+                        updateModelWith(selectedLumbar: selectedLumbar)
+                    }
                     .scrollContentBackground(.hidden).padding(.top, -25)
+                    
                     HStack {
-                        SelectButton(isSelected: $leftSelected,
-                                     text: "LEFT")
-                        .onTapGesture {
-                            leftSelected = true
-                        }
-                        SelectButton(isSelected: $leftSelected.not ,
-                                     text: "RIGHT")
-                        .onTapGesture {
-                            leftSelected = false
-                        }
+                        SelectButton(isSelected: $leftSelected,  text: "LEFT")
+                            .onTapGesture {
+                                leftSelected = true
+                            }
+                        SelectButton(isSelected: $leftSelected.not, text: "RIGHT")
+                            .onTapGesture {
+                                leftSelected = false
+                            }
                     }
                     Button {
                         deleteRealm()
@@ -97,6 +128,31 @@ struct ContentView: View {
         }
     }
     
+    // this crashes the app
+    // selection highlight is working, not passing in a lumbsr, its nil
+    private func updateModelWith(selectedLumbar: LumbarList?) {
+        
+        let lastSelection = lumbarList.filter { $0.isSelected }
+        // none are selected yet!
+        print("change isSelected to false + save: \(lastSelection.first)")
+        print("make this isSelected \(selectedLumbar)")
+        
+        //        do {
+        //            let realm = try Realm()
+        //            try realm.write {
+        //                // delselxct last lumbar
+        //                if !lastSelection.isEmpty {
+        //                    lastSelection.first?.isSelected = false
+        //                }
+        //                // mark new lumbar as selected
+        //                selectedLumbar!.isSelected = true
+        //            }
+        //        }
+        //        catch {
+        //            print(error)
+        //        }
+    }
+    
     func generateLumbatListDefaults()  {
         // left
         let retrievedObject = LumbarList()
@@ -104,6 +160,7 @@ struct ContentView: View {
         retrievedObject.axial = 5.0
         retrievedObject.sagital = 10.0
         retrievedObject.leftSelected = true
+        retrievedObject.isSelected = true
         $lumbarList.append(retrievedObject)
         
         let retrievedObject2 = LumbarList()

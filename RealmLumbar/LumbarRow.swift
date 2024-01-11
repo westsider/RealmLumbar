@@ -23,6 +23,9 @@ struct LumbarRow: View {
     @FocusState private var focusS: Bool
     @FocusState private var focusA: Bool
     
+    // selection
+    @State private var isSelected : Bool = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -62,6 +65,7 @@ struct LumbarRow: View {
                     .onChange(of: focusS) { focused in
                         if focused {
                             saggital = ""
+                            //isSelected = true
                         } else {
                             // persist name
                             persistObject()
@@ -83,6 +87,7 @@ struct LumbarRow: View {
                 object.title = lumabeName
                 object.axial = Utilities.getDoubleFrom(string: axial)
                 object.sagital = Utilities.getDoubleFrom(string: saggital)
+                object.isSelected = isSelected
             }
         }
         catch {
@@ -96,6 +101,7 @@ struct LumbarRow: View {
         retrievedObject.axial = 1.0
         retrievedObject.sagital = 1.0
         retrievedObject.leftSelected = true
+        isSelected = retrievedObject.isSelected
         
         do {
             let realm = try Realm()
@@ -116,19 +122,19 @@ struct LumbarRow: View {
 }
 
 //struct LumbarRow: View {
-//    
+//
 //    var id: ObjectId
 //    var listObject: ShoppingList {
 //        return getObject()
 //    }
-//    
+//
 //    // textfeild vars
 //    @State private var title: String = ""
 //    @State private var address: String = ""
 //    @FocusState private var focusI: Bool
 //    @FocusState private var focusS: Bool
 //    @FocusState private var focusA: Bool
-//    
+//
 //    var body: some View {
 //        VStack {
 //            HStack {
@@ -165,7 +171,7 @@ struct LumbarRow: View {
 //            }
 //        }
 //    }
-//    
+//
 //    private func persistObject() {
 //        do {
 //            let realm = try Realm()
@@ -179,7 +185,7 @@ struct LumbarRow: View {
 //            print(error)
 //        }
 //    }
-//    
+//
 //    private func getObject() -> ShoppingList {
 //        var retrievedObject = ShoppingList()
 //        retrievedObject.title = "no title"
