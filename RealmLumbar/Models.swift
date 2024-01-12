@@ -10,8 +10,6 @@ import RealmSwift
 import UIKit
 import SwiftUI
 
-// geneate a lumbar item
-
 class LumbarList: Object, Identifiable {
     
     @Persisted(primaryKey: true) var id: ObjectId
@@ -25,15 +23,28 @@ class LumbarList: Object, Identifiable {
         "id"
     }
     
-    static func getSelected(itemId: ObjectId) {
+    static func getObject(funcId: ObjectId) -> LumbarList {
+        
+        //let item = LumbarList.getSelected(itemId: id)
+        
+        var retrievedObject = LumbarList()
+        retrievedObject.title = "L1"
+        retrievedObject.axial = 1.0
+        retrievedObject.sagital = 1.0
+        retrievedObject.leftSelected = true
+        retrievedObject.isSelected = true
+        
         do {
             let realm = try Realm()
-            guard let item = realm.object(ofType: LumbarList.self, forPrimaryKey: itemId) else {return  }
-            
-            print("Realm retrieved Selected Item: ID: \(item.id), AX: \(item.axial), SG: \(item.sagital)")
-        } catch {
+            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: funcId) else {
+                return retrievedObject
+            }
+            retrievedObject = objectFiltered
+        }
+        catch {
             print(error)
         }
+        return retrievedObject
     }
     
     
@@ -45,7 +56,7 @@ class LumbarList: Object, Identifiable {
                 try realm.write {
                     lumbarToSelect.isSelected = true
                 }
-                print("item updated to isSelected")
+                //print("item updated to isSelected")
             }
         } catch {
             print("An error occurred while updating the LumbarList: \(error)")
@@ -55,16 +66,12 @@ class LumbarList: Object, Identifiable {
     static func removeIsSectedItem() {
         do {
             let realm = try Realm()
-            
             let allSelectedItems = getSelectedItem()
-            
             guard let itemToDeSelect = allSelectedItems.first else { return }
-            
-            //if let lumbarToSelect = realm.object(ofType: LumbarList.self, forPrimaryKey: item.id) {
             try realm.write {
                 itemToDeSelect.isSelected = false
             }
-            print("item updated to isSelected")
+            //print("item updated to isSelected")
             // }
         } catch {
             print("An error occurred while updating the LumbarList: \(error)")
@@ -77,9 +84,59 @@ class LumbarList: Object, Identifiable {
             return realm.objects(LumbarList.self).filter("isSelected == %@", true)
         }
         
-        print("Realm found Selected Item: ID: \(item.first?.id), AX: \(item.first?.axial), SG: \(item.first?.sagital)")
+//          print("Realm found Selected Item: ID: \(item.first?.id), AX: \(item.first?.axial), SG: \(item.first?.sagital)")
         
         return item
+    }
+    
+    static func generateDefaultObject(num: Int) -> LumbarList {
+        
+        switch num {
+        case 1:
+            let retrievedObject = LumbarList()
+            retrievedObject.title = "L1"
+            retrievedObject.axial = 5.0
+            retrievedObject.sagital = 10.0
+            retrievedObject.leftSelected = true
+            retrievedObject.isSelected = true
+            return retrievedObject
+        case 2:
+            let retrievedObject2 = LumbarList()
+            retrievedObject2.title = "L2"
+            retrievedObject2.axial = 15.0
+            retrievedObject2.sagital = 20.0
+            retrievedObject2.leftSelected = true
+            return retrievedObject2
+        case 3:
+            let retrievedObject3 = LumbarList()
+            retrievedObject3.title = "L1"
+            retrievedObject3.axial = 30.0
+            retrievedObject3.sagital = 35.0
+            retrievedObject3.leftSelected = false
+            return retrievedObject3
+        case 4:
+            let retrievedObject4 = LumbarList()
+            retrievedObject4.title = "L2"
+            retrievedObject4.axial = 40.0
+            retrievedObject4.sagital = 45.0
+            retrievedObject4.leftSelected = false
+            return retrievedObject4
+        default:
+            let retrievedObject = LumbarList()
+            retrievedObject.title = "L1"
+            retrievedObject.axial = 5.0
+            retrievedObject.sagital = 10.0
+            retrievedObject.leftSelected = true
+            retrievedObject.isSelected = true
+            return retrievedObject
+        }
+    }
+    
+    static func deleteRealm() {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
     }
 }
 

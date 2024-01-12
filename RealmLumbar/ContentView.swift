@@ -85,7 +85,7 @@ struct ContentView: View {
                             }
                     }
                     Button {
-                        deleteRealm()
+                        LumbarList.deleteRealm()
                         generateLumbatListDefaults()
                     } label: {
                         Text("CLEAR ALL")
@@ -113,43 +113,15 @@ struct ContentView: View {
     }
     
     private func updateSeletedItem(_ item: LumbarList) {
-        //print("Selected Item: ID: \(item.id), AX: \(item.axial), SG: \(item.sagital)")
-        //LumbarList.getSelected(itemId: item.id)
         LumbarList.removeIsSectedItem()
         LumbarList.updateItemAsSelected(item: item)
     }
 
     
     func generateLumbatListDefaults()  {
-        // left
-        let retrievedObject = LumbarList()
-        retrievedObject.title = "L1"
-        retrievedObject.axial = 5.0
-        retrievedObject.sagital = 10.0
-        retrievedObject.leftSelected = true
-        retrievedObject.isSelected = true
-        $lumbarList.append(retrievedObject)
-        
-        let retrievedObject2 = LumbarList()
-        retrievedObject2.title = "L2"
-        retrievedObject2.axial = 15.0
-        retrievedObject2.sagital = 20.0
-        retrievedObject2.leftSelected = true
-        $lumbarList.append(retrievedObject2)
-        // roght
-        let retrievedObject3 = LumbarList()
-        retrievedObject3.title = "L1"
-        retrievedObject3.axial = 30.0
-        retrievedObject3.sagital = 35.0
-        retrievedObject3.leftSelected = false
-        $lumbarList.append(retrievedObject3)
-        
-        let retrievedObject4 = LumbarList()
-        retrievedObject4.title = "L2"
-        retrievedObject4.axial = 40.0
-        retrievedObject4.sagital = 45.0
-        retrievedObject4.leftSelected = false
-        $lumbarList.append(retrievedObject4)
+        for i in 1...4 {
+            $lumbarList.append(LumbarList.generateDefaultObject(num: i))
+        }
     }
     
     func newLumbarObject(leftOn: Bool)  {
@@ -161,13 +133,6 @@ struct ContentView: View {
         retrievedObject.leftSelected = leftOn
         $lumbarList.append(retrievedObject)
         
-    }
-    
-    private func deleteRealm() {
-        let realm = try! Realm()
-        try! realm.write {
-            realm.deleteAll()
-        }
     }
 }
 

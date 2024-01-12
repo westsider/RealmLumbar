@@ -12,7 +12,7 @@ struct LumbarRow: View {
     
     var id: ObjectId
     var listObject: LumbarList {
-        return getObject()
+        return getObject(funcId: id)
     }
     
     // textfeild vars
@@ -24,7 +24,7 @@ struct LumbarRow: View {
     @FocusState private var focusA: Bool
     
     // selection
-    @State private var isSelected : Bool = false
+    //@State private var isSelected : Bool = false
     
     var body: some View {
         VStack {
@@ -82,12 +82,12 @@ struct LumbarRow: View {
     private func persistObject() {
         do {
             let realm = try Realm()
-            let object = getObject()
+            let object = getObject(funcId: id)
             try realm.write {
                 object.title = lumabeName
                 object.axial = Utilities.getDoubleFrom(string: axial)
                 object.sagital = Utilities.getDoubleFrom(string: saggital)
-                object.isSelected = isSelected
+                //object.isSelected = isSelected
             }
         }
         catch {
@@ -95,17 +95,20 @@ struct LumbarRow: View {
         }
     }
     
-    private func getObject() -> LumbarList {
+    private func getObject(funcId: ObjectId) -> LumbarList {
+        
+        //let item = LumbarList.getSelected(itemId: id)
+        
         var retrievedObject = LumbarList()
         retrievedObject.title = "L1"
         retrievedObject.axial = 1.0
         retrievedObject.sagital = 1.0
         retrievedObject.leftSelected = true
-        isSelected = retrievedObject.isSelected
+        retrievedObject.isSelected = true
         
         do {
             let realm = try Realm()
-            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {
+            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: funcId) else {
                 return retrievedObject
             }
             retrievedObject = objectFiltered
@@ -120,89 +123,3 @@ struct LumbarRow: View {
 #Preview {
     LumbarRow(id: ObjectId())
 }
-
-//struct LumbarRow: View {
-//
-//    var id: ObjectId
-//    var listObject: ShoppingList {
-//        return getObject()
-//    }
-//
-//    // textfeild vars
-//    @State private var title: String = ""
-//    @State private var address: String = ""
-//    @FocusState private var focusI: Bool
-//    @FocusState private var focusS: Bool
-//    @FocusState private var focusA: Bool
-//
-//    var body: some View {
-//        VStack {
-//            HStack {
-//                Spacer()
-//                TextField("title", text: $title)
-//                    .focused($focusI)
-//                    .onChange(of: focusI) { focused in
-//                        if focused {
-//                            title = ""
-//                        } else {
-//                            // persist name
-//                            persistObject()
-//                        }
-//                    }
-//                    .onAppear() {
-//                        title = listObject.title
-//                    }
-//                Spacer()
-//                //Text("\(listObject.address)")
-//                TextField("address", text: $address)
-//                    .focused($focusS)
-//                    .onChange(of: focusS) { focused in
-//                        if focused {
-//                            address = ""
-//                        } else {
-//                            // persist name
-//                            persistObject()
-//                        }
-//                    }
-//                    .onAppear() {
-//                        address = listObject.address
-//                    }
-//                Spacer()
-//            }
-//        }
-//    }
-//
-//    private func persistObject() {
-//        do {
-//            let realm = try Realm()
-//            var object = getObject()
-//            try realm.write {
-//                object.title = title
-//                object.address = address
-//            }
-//        }
-//        catch {
-//            print(error)
-//        }
-//    }
-//
-//    private func getObject() -> ShoppingList {
-//        var retrievedObject = ShoppingList()
-//        retrievedObject.title = "no title"
-//        retrievedObject.address = "no address"
-//        do {
-//            let realm = try Realm()
-//            guard let objectFiltered = realm.object(ofType: ShoppingList.self, forPrimaryKey: id) else {
-//                return retrievedObject
-//            }
-//            retrievedObject = objectFiltered
-//        }
-//        catch {
-//            print(error)
-//        }
-//        return retrievedObject
-//    }
-//}
-//#Preview {
-//    LumbarRow2(id: ObjectId())
-//}
