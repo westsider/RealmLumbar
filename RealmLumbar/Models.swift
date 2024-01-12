@@ -10,33 +10,6 @@ import RealmSwift
 import UIKit
 import SwiftUI
 
-//class ShoppingList: Object, Identifiable {
-//    
-//    @Persisted(primaryKey: true) var id: ObjectId
-//    @Persisted var title: String
-//    @Persisted var address: String
-//    
-//    @Persisted var items: List<ShoppingItem> = List<ShoppingItem>()
-//    
-//    override class func primaryKey() -> String? {
-//        "id"
-//    }
-//    
-//}
-//
-//class ShoppingItem: Object, Identifiable {
-//    
-//    @Persisted(primaryKey: true) var id: ObjectId
-//    @Persisted var title: String
-//    @Persisted var quantity: Int
-//    @Persisted var category: String
-//    
-//    override class func primaryKey() -> String? {
-//        return "id"
-//    }
-//    
-//}
-
 // geneate a lumbar item
 
 class LumbarList: Object, Identifiable {
@@ -53,6 +26,34 @@ class LumbarList: Object, Identifiable {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Utilities {
     

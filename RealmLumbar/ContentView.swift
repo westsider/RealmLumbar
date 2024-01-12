@@ -19,7 +19,6 @@
 
 /*
  Friday
- Get right working
  Get selected lumbar persisting
  Pass that to crosshair
  */
@@ -54,6 +53,7 @@ struct ContentView: View {
                     
                     List {
                         if leftSelected {
+                            
                             ForEach(lumbarListLeft, id: \.id) { type in
                                 LumbarRow(id: type.id)
                                     .onAppear() {
@@ -63,7 +63,7 @@ struct ContentView: View {
                                     .contentShape(Rectangle()) //makes whole row tappable
                                     .onTapGesture {
                                         selectedLumbar = type
-                                        print("tapped Lombar Row")
+                                        //updateModelWith()
                                     }
                                     .listRowBackground(selectedLumbar == type ? Color(.systemFill) : Color(.systemBackground))
                             }
@@ -85,8 +85,8 @@ struct ContentView: View {
                         }
                     }
                     .onTapGesture {
-                        print("tapped List \(selectedLumbar)")
-                        updateModelWith(selectedLumbar: selectedLumbar)
+                        //print("tapped List \(selectedLumbar)")
+                       // updateModelWith(selectedLumbar: selectedLumbar)
                     }
                     .scrollContentBackground(.hidden).padding(.top, -25)
                     
@@ -130,27 +130,36 @@ struct ContentView: View {
     
     // this crashes the app
     // selection highlight is working, not passing in a lumbsr, its nil
-    private func updateModelWith(selectedLumbar: LumbarList?) {
+    private func updateModelWith() {
+
+        // remove old isSelected
+        //let lastSelection = lumbarList.filter { $0.isSelected }
         
-        let lastSelection = lumbarList.filter { $0.isSelected }
-        // none are selected yet!
-        print("change isSelected to false + save: \(lastSelection.first)")
-        print("make this isSelected \(selectedLumbar)")
-        
-        //        do {
-        //            let realm = try Realm()
-        //            try realm.write {
-        //                // delselxct last lumbar
-        //                if !lastSelection.isEmpty {
-        //                    lastSelection.first?.isSelected = false
-        //                }
-        //                // mark new lumbar as selected
-        //                selectedLumbar!.isSelected = true
-        //            }
-        //        }
-        //        catch {
-        //            print(error)
-        //        }
+        // persist this
+        print("updateModelWith got id: \(selectedLumbar)")
+
+        // when realm write is added the ui stops being selected
+        DispatchQueue.global(qos: .background).async {
+            
+       // move this to the model
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        //guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {return  }
+//                        let objectFiltered = lumbarList.filter { $0.id == id}
+//                        print(objectFiltered)
+//                        // delselxct last lumbar
+//                        if !lastSelection.isEmpty {
+//                            lastSelection.first?.isSelected = false
+//                        }
+//                        // mark new lumbar as selected
+//                        selectedLumbar!.isSelected = true
+                    }
+                }
+                catch {
+                    print(error)
+                }
+        }
     }
     
     func generateLumbatListDefaults()  {
