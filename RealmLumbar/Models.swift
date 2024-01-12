@@ -23,6 +23,21 @@ class LumbarList: Object, Identifiable {
         "id"
     }
     
+    static func persistObject(id: ObjectId, name: String, ax: String, sg: String) {
+        do {
+            let realm = try Realm()
+            let object = getObject(id: id)
+            try realm.write {
+                object.title = name
+                object.axial = Utilities.getDoubleFrom(string: ax)
+                object.sagital = Utilities.getDoubleFrom(string: sg)
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
     static func getObject(id: ObjectId) -> LumbarList {
         
         //let item = LumbarList.getSelected(itemId: id)

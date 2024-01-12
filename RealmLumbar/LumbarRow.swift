@@ -11,6 +11,8 @@ import RealmSwift
 struct LumbarRow: View {
     
     var id: ObjectId
+    
+    // persisted object
     var listObject: LumbarList {
         return getObject(funcId: id)
     }
@@ -22,10 +24,7 @@ struct LumbarRow: View {
     @FocusState private var focusI: Bool
     @FocusState private var focusS: Bool
     @FocusState private var focusA: Bool
-    
-    // selection
-    //@State private var isSelected : Bool = false
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -37,62 +36,51 @@ struct LumbarRow: View {
                             lumabeName = ""
                         } else {
                             // persist name
-                            persistObject()
+                            persistObject(funcId: id)
                         }
                     }
                     .onAppear() {
                         lumabeName = listObject.title
                     }
                 Spacer()
-                //Text("\(listObject.address)")
+               
                 TextField("axial", text: $axial)
                     .focused($focusA)
                     .onChange(of: focusA) { focused in
                         if focused {
                             axial = ""
                         } else {
-                            // persist name
-                            persistObject()
+                            // persist axial
+                            persistObject(funcId: id)
                         }
                     }
                     .onAppear() {
                         axial = "\(listObject.axial)"
                     }.bold()
+                    .keyboardType(.numbersAndPunctuation)
                 Spacer()
-                //Text("\(listObject.address)")
+
                 TextField("sagital", text: $saggital)
                     .focused($focusS)
                     .onChange(of: focusS) { focused in
                         if focused {
                             saggital = ""
-                            //isSelected = true
                         } else {
-                            // persist name
-                            persistObject()
+                            // persist saggital
+                            persistObject(funcId: id)
                         }
                     }
                     .onAppear() {
                         saggital = "\(listObject.sagital)"
                     }.foregroundStyle(.black.opacity(0.5))
+                    .keyboardType(.numbersAndPunctuation)
                 Spacer()
             }
         }
     }
     
-    private func persistObject() {
-        do {
-            let realm = try Realm()
-            let object = getObject(funcId: id)
-            try realm.write {
-                object.title = lumabeName
-                object.axial = Utilities.getDoubleFrom(string: axial)
-                object.sagital = Utilities.getDoubleFrom(string: saggital)
-                //object.isSelected = isSelected
-            }
-        }
-        catch {
-            print(error)
-        }
+    private func persistObject(funcId: ObjectId) {
+        LumbarList.persistObject(id: funcId, name: lumabeName, ax: axial, sg: saggital)
     }
     
     private func getObject(funcId: ObjectId) -> LumbarList {

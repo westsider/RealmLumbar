@@ -70,7 +70,6 @@ struct ContentView: View {
                             updateSeletedItem(selectedItem)
                         }
                     }
-                    
                     .scrollContentBackground(.hidden).padding(.top, -25)
                     
                     /// LEFT and RIGHT buttons
@@ -78,10 +77,12 @@ struct ContentView: View {
                         SelectButton(isSelected: $leftSelected,  text: "LEFT")
                             .onTapGesture {
                                 leftSelected = true
+                                switchSideSelectsFirstLumbar()
                             }
                         SelectButton(isSelected: $leftSelected.not, text: "RIGHT")
                             .onTapGesture {
                                 leftSelected = false
+                                switchSideSelectsFirstLumbar()
                             }
                     }
                     Button {
@@ -103,12 +104,23 @@ struct ContentView: View {
                         
                     }
                 }.onAppear() {
+                    // select the first lumbar when view first appears
+                    switchSideSelectsFirstLumbar()
                     if items.isEmpty {
                         generateLumbatListDefaults()
                     }
                 }
                 CrosshairView()
             }.padding()
+        }
+    }
+    
+    private func switchSideSelectsFirstLumbar() {
+        if let firstRow = items.first {
+            print("switching \(firstRow.title)")
+            self.selectedItemId = firstRow.id
+            updateSeletedItem(firstRow)
+            self.selectedItemId = firstRow.id
         }
     }
     
@@ -143,9 +155,8 @@ struct ContentView: View {
 
 struct CrosshairView: View {
     @ObservedResults(LumbarList.self, where: { $0.isSelected == true }) var selectedLumbars
-
     var body: some View {
-
+        // may want to pick first incase more than one is selected bug
         ForEach(selectedLumbars) { lumbar in
             Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
         }
