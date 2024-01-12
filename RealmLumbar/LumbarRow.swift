@@ -96,27 +96,7 @@ struct LumbarRow: View {
     }
     
     private func getObject(funcId: ObjectId) -> LumbarList {
-        
-        //let item = LumbarList.getSelected(itemId: id)
-        
-        var retrievedObject = LumbarList()
-        retrievedObject.title = "L1"
-        retrievedObject.axial = 1.0
-        retrievedObject.sagital = 1.0
-        retrievedObject.leftSelected = true
-        retrievedObject.isSelected = true
-        
-        do {
-            let realm = try Realm()
-            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: funcId) else {
-                return retrievedObject
-            }
-            retrievedObject = objectFiltered
-        }
-        catch {
-            print(error)
-        }
-        return retrievedObject
+        return LumbarList.getObject(id: funcId)
     }
 }
 

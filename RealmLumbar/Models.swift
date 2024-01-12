@@ -23,7 +23,7 @@ class LumbarList: Object, Identifiable {
         "id"
     }
     
-    static func getObject(funcId: ObjectId) -> LumbarList {
+    static func getObject(id: ObjectId) -> LumbarList {
         
         //let item = LumbarList.getSelected(itemId: id)
         
@@ -36,7 +36,7 @@ class LumbarList: Object, Identifiable {
         
         do {
             let realm = try Realm()
-            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: funcId) else {
+            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {
                 return retrievedObject
             }
             retrievedObject = objectFiltered
