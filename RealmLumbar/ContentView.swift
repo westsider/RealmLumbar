@@ -50,7 +50,7 @@ struct ContentView: View {
                     Spacer()
                 }.offset(x: -30, y: 0)
                 VStack {
-                    if lumbarList.isEmpty {
+                    if items.isEmpty {
                         Text("Lumbar List is Empty")
                     }
                     List {
@@ -103,7 +103,7 @@ struct ContentView: View {
                         
                     }
                 }.onAppear() {
-                    if lumbarList.isEmpty {
+                    if items.isEmpty {
                         generateLumbatListDefaults()
                     }
                 }
@@ -113,42 +113,12 @@ struct ContentView: View {
     }
     
     private func updateSeletedItem(_ item: LumbarList) {
-        print("Selected Item: ID: \(item.id), AX: \(item.axial), SG: \(item.sagital)")
+        //print("Selected Item: ID: \(item.id), AX: \(item.axial), SG: \(item.sagital)")
+        //LumbarList.getSelected(itemId: item.id)
+        LumbarList.removeIsSectedItem()
+        LumbarList.updateItemAsSelected(item: item)
     }
-    
-    // this crashes the app
-    // selection highlight is working, not passing in a lumbsr, its nil
-    private func updateModelWith() {
-        
-        // remove old isSelected
-        //let lastSelection = lumbarList.filter { $0.isSelected }
-        
-        // persist this
-        //print("updateModelWith got id: \(selectedLumbar)")
-        
-        // when realm write is added the ui stops being selected
-        DispatchQueue.global(qos: .background).async {
-            
-            // move this to the model
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    //guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {return  }
-                    //                        let objectFiltered = lumbarList.filter { $0.id == id}
-                    //                        print(objectFiltered)
-                    //                        // delselxct last lumbar
-                    //                        if !lastSelection.isEmpty {
-                    //                            lastSelection.first?.isSelected = false
-                    //                        }
-                    //                        // mark new lumbar as selected
-                    //                        selectedLumbar!.isSelected = true
-                }
-            }
-            catch {
-                print(error)
-            }
-        }
-    }
+
     
     func generateLumbatListDefaults()  {
         // left
@@ -207,8 +177,13 @@ struct ContentView: View {
 
 
 struct CrosshairView: View {
+    @ObservedResults(LumbarList.self, where: { $0.isSelected == true }) var selectedLumbars
+
     var body: some View {
-        Text("recieved lumbar...")
+
+        ForEach(selectedLumbars) { lumbar in
+            Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
+        }
     }
 }
 struct GreyButtonSimple: ButtonStyle {
