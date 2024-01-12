@@ -28,15 +28,18 @@ import RealmSwift
 struct ContentView: View {
     
     @ObservedResults(LumbarList.self) var lumbarList
-    @ObservedResults(LumbarList.self, where: ( { $0.leftSelected == true } )) var lumbarListLeft
-    @ObservedResults(LumbarList.self, where: ( { $0.leftSelected == false } )) var lumbarListRight
-    
     @State var leftSelected: Bool = true
-    @State private var selectedLumbar: LumbarList?
+    @State private var selectedItemId: ObjectId?
+    
+    var items: Results<LumbarList> {
+        let realm = try! Realm()
+        return realm.objects(LumbarList.self).filter("leftSelected == %@", leftSelected)
+    }
     
     var body: some View {
         NavigationView {
             VStack {
+                /// list titles of AX and SG
                 HStack {
                     Spacer(minLength: 100)
                     Text(" ")
@@ -50,46 +53,27 @@ struct ContentView: View {
                     if lumbarList.isEmpty {
                         Text("Lumbar List is Empty")
                     }
-                    
                     List {
-                        if leftSelected {
-                            
-                            ForEach(lumbarListLeft, id: \.id) { type in
-                                LumbarRow(id: type.id)
-                                    .onAppear() {
-                                        //selectedLumbar = type
-                                        //updateModelWith(selectedLumbar: selectedLumbar!)
-                                    }
-                                    .contentShape(Rectangle()) //makes whole row tappable
-                                    .onTapGesture {
-                                        selectedLumbar = type
-                                        //updateModelWith()
-                                    }
-                                    .listRowBackground(selectedLumbar == type ? Color(.systemFill) : Color(.systemBackground))
-                            }
-                        }
-                        if !leftSelected {
-                            ForEach(lumbarListRight, id: \.id) { type in
-                                LumbarRow(id: type.id)
-                                    .onAppear() {
-                                        //selectedLumbar = type
-                                        //updateModelWith(selectedLumbar: selectedLumbar!)
-                                    }
-                                    .contentShape(Rectangle()) //makes whole row tappable
-                                    .onTapGesture {
-                                        selectedLumbar = type
-                                        print("tapped Lombar Row")
-                                    }
-                                    .listRowBackground(selectedLumbar == type ? Color(.systemFill) : Color(.systemBackground))
-                            }
+                        ForEach(items, id: \.id) { item in
+                            LumbarRow(id: item.id)
+                                .tag(item.id)
+                                .contentShape(Rectangle()) //makes whole row tappable
+                                .onTapGesture {
+                                    self.selectedItemId = item.id
+                                }
+                                .listRowBackground(selectedItemId == item.id ? Color(.systemFill) : Color(.systemBackground))
                         }
                     }
-                    .onTapGesture {
-                        //print("tapped List \(selectedLumbar)")
-                       // updateModelWith(selectedLumbar: selectedLumbar)
+                    .onChange(of: selectedItemId) { newItemId in
+                        if let newItemId = newItemId,
+                           let selectedItem = items.first(where: { $0.id == newItemId }) {
+                            updateSeletedItem(selectedItem)
+                        }
                     }
+                    
                     .scrollContentBackground(.hidden).padding(.top, -25)
                     
+                    /// LEFT and RIGHT buttons
                     HStack {
                         SelectButton(isSelected: $leftSelected,  text: "LEFT")
                             .onTapGesture {
@@ -128,37 +112,41 @@ struct ContentView: View {
         }
     }
     
+    private func updateSeletedItem(_ item: LumbarList) {
+        print("Selected Item: ID: \(item.id), AX: \(item.axial), SG: \(item.sagital)")
+    }
+    
     // this crashes the app
     // selection highlight is working, not passing in a lumbsr, its nil
     private func updateModelWith() {
-
+        
         // remove old isSelected
         //let lastSelection = lumbarList.filter { $0.isSelected }
         
         // persist this
-        print("updateModelWith got id: \(selectedLumbar)")
-
+        //print("updateModelWith got id: \(selectedLumbar)")
+        
         // when realm write is added the ui stops being selected
         DispatchQueue.global(qos: .background).async {
             
-       // move this to the model
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        //guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {return  }
-//                        let objectFiltered = lumbarList.filter { $0.id == id}
-//                        print(objectFiltered)
-//                        // delselxct last lumbar
-//                        if !lastSelection.isEmpty {
-//                            lastSelection.first?.isSelected = false
-//                        }
-//                        // mark new lumbar as selected
-//                        selectedLumbar!.isSelected = true
-                    }
+            // move this to the model
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    //guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {return  }
+                    //                        let objectFiltered = lumbarList.filter { $0.id == id}
+                    //                        print(objectFiltered)
+                    //                        // delselxct last lumbar
+                    //                        if !lastSelection.isEmpty {
+                    //                            lastSelection.first?.isSelected = false
+                    //                        }
+                    //                        // mark new lumbar as selected
+                    //                        selectedLumbar!.isSelected = true
                 }
-                catch {
-                    print(error)
-                }
+            }
+            catch {
+                print(error)
+            }
         }
     }
     
@@ -203,18 +191,6 @@ struct ContentView: View {
         retrievedObject.leftSelected = leftOn
         $lumbarList.append(retrievedObject)
         
-    }
-    
-    //MARK: - todo - can I use a switch to filter and poulate the List
-    private func filterLeft() -> LazyFilterSequence<Results<LumbarList>> {
-        var leftOnly = lumbarList.filter { $0.leftSelected }
-        switch leftSelected {
-        case true:
-            leftOnly = lumbarList.filter { $0.leftSelected }
-        case false:
-            leftOnly = lumbarList.filter { !$0.leftSelected }
-        }
-        return leftOnly
     }
     
     private func deleteRealm() {
