@@ -61,7 +61,7 @@ struct ContentView: View {
                                 .onTapGesture {
                                     self.selectedItemId = item.id
                                 }
-                                .listRowBackground(selectedItemId == item.id ? Color(.systemFill) : Color(.systemBackground))
+                                .listRowBackground(selectedItemId == item.id ? Color.blue.opacity(0.5) : Color.gray.opacity(0.2))
                         }
                     }
                     .onChange(of: selectedItemId) { newItemId in
@@ -110,6 +110,7 @@ struct ContentView: View {
                         generateLumbatListDefaults()
                     }
                 }
+                Spacer()
                 CrosshairView()
             }.padding()
         }
@@ -117,7 +118,6 @@ struct ContentView: View {
     
     private func switchSideSelectsFirstLumbar() {
         if let firstRow = items.first {
-            print("switching \(firstRow.title)")
             self.selectedItemId = firstRow.id
             updateSeletedItem(firstRow)
             self.selectedItemId = firstRow.id
