@@ -114,6 +114,10 @@ struct ContentView: View {
                 // this is the main view
                 //-----------------------------
                 CrosshairView()
+                //----------------------------
+                // this is theinput switch
+                //-----------------------------
+                SegmentedSwitchView()
             }.padding()
         }
     }
