@@ -16,7 +16,37 @@ class InputList: Object, Identifiable {
     override class func primaryKey() -> String? {
         "id"
     }
- 
+    
+    static func getObject(id: String) -> InputList {
+        
+        var retrievedObject = InputList()
+        do {
+            let realm = try Realm()
+            guard let objectFiltered = realm.object(ofType: InputList.self, forPrimaryKey: id) else {
+                return retrievedObject
+            }
+            retrievedObject = objectFiltered
+        }
+        catch {
+            print(error)
+        }
+        return retrievedObject
+    }
+    
+    static func updateItemPerifUUID(item: InputList, newUUID: String) {
+        do {
+            let realm = try Realm()
+            
+            if let inpurtToChange = realm.object(ofType: InputList.self, forPrimaryKey: item._id) {
+                try realm.write {
+                    inpurtToChange.singlePeripheralUUID = newUUID
+                }
+            }
+        } catch {
+            print("An error occurred while updating the LumbarList: \(error)")
+        }
+    }
+    
     static func generateDefaultObject(num: Int) -> InputList {
         
         switch num {

@@ -176,9 +176,10 @@ struct CrosshairView: View {
             }
         }.onAppear() {
             if inputList.isEmpty {
-                //$inputList..append(LumbarList.generateDefaultObject(num: i))
                 generateInputListDefaults()
             }
+            
+            updateInputListWithDevices()
         }
     }
     
@@ -189,7 +190,11 @@ struct CrosshairView: View {
     }
     
     func updateInputListWithDevices() {
-        // if perifials found.. add to the first index
+        print(" calling updateInputListWithDevices")
+
+        let item = InputList.getObject(id: "Device 1")
+        print("have item \(item._id)")
+        InputList.updateItemPerifUUID(item: item, newUUID: "RJB6 1234.5678")
     }
     
 }

@@ -21,6 +21,9 @@ class LumbarList: Object, Identifiable {
         "id"
     }
     
+
+    
+    
     static func persistObject(id: ObjectId, name: String, ax: String, sg: String) {
         do {
             let realm = try Realm()
@@ -150,7 +153,7 @@ class LumbarList: Object, Identifiable {
         try! realm.write {
             realm.deleteAll()
         }
-    } 
+    }
 }
 
 
