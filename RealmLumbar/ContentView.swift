@@ -186,7 +186,8 @@ struct CrosshairView: View {
             ForEach(inputList) { input in
                 Text("\(input.singlePeripheralUUID)")
             }
-            Text("Selected: \(selectedDeviceUUID)")
+            let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
+            Text("Selected: \(newItem)")
         }.onAppear() {
             displaySelectedInput()
         }
@@ -194,7 +195,7 @@ struct CrosshairView: View {
     
     // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
     // [X] show in this button view
-    // [ ] update the  Crosshair UI
+    // [X] update the  Crosshair UI
     
     func displaySelectedInput() {
         let uuidName = InputList.displaySelectedInput()
