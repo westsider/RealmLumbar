@@ -12,7 +12,7 @@ class Migrator {
     
     init() {
         //updateSchema()
-        deleteAndReInit()
+        //deleteAndReInit()
     }
     
     func deleteAndReInit() {
@@ -21,7 +21,7 @@ class Migrator {
             if let fileURL = config.fileURL {
                 try FileManager.default.removeItem(at: fileURL)
             }
-            let newRealm = try Realm(configuration: config)
+            let _ = try Realm(configuration: config)
             // Now 'newRealm' is a fresh instance of Realm with no data
             // You can start using it for your application
         } catch {

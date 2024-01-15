@@ -13,14 +13,10 @@ class InputList: Object, Identifiable {
     @Persisted var singlePeripheralUUID: String
     @Persisted var isSelectd: Bool
     
-    @Persisted var newBool: Bool
-    
     override class func primaryKey() -> String? {
         "id"
     }
-    
-    // in swiftui how can i delete or re initialze the realm database instead of migrate?
-    
+ 
     static func generateDefaultObject(num: Int) -> InputList {
         
         switch num {
@@ -57,48 +53,8 @@ class InputList: Object, Identifiable {
         }
     }
     
-//    static func addUUIDToREalm(foundDevice: String) {
-//
-//        let realm = try! Realm()
-//        try! realm.write {
-//            //peripheralUUID.append(foundDevice)
-//        }
-//    }
-//    
-//    static func getObject(id: ObjectId) -> LumbarList {
-//
-//    }
-//    static func getSavedUUIDs() {
-//        for item in peripheralUUID {
-//            print(item)
-//        }
-//    }
+    func replaceUUID() {
+        
+    }
 }
 
-//
-//class InputList: Object, Identifiable {
-//    @Persisted(primaryKey: true) var _id: String
-//    @Persisted var peripheralUUID: RealmSwift.List<String>
-//    @Persisted var selectedUUID: String
-//    
-//    override class func primaryKey() -> String? {
-//        "id"
-//    }
-//    
-////    static func addUUIDToREalm(foundDevice: String) {
-////
-////        let realm = try! Realm()
-////        try! realm.write {
-////            //peripheralUUID.append(foundDevice)
-////        }
-////    }
-////
-////    static func getObject(id: ObjectId) -> LumbarList {
-////
-////    }
-////    static func getSavedUUIDs() {
-////        for item in peripheralUUID {
-////            print(item)
-////        }
-////    }
-//}
