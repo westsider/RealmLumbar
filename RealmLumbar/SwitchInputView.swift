@@ -11,15 +11,6 @@ import RealmSwift
 struct SegmentedSwitchView: View {
     
     @ObservedResults(InputList.self) var inputList
-    
-    var connectedDevices: [String] {
-        // 1. Fetch the titles from your Realm string array here
-        let uuid1 = inputList[0].singlePeripheralUUID
-        let uuid2 = inputList[1].singlePeripheralUUID
-        let uuid3 = inputList[2].singlePeripheralUUID
-        let uuid4 = inputList[3].singlePeripheralUUID
-        return [uuid1, uuid2, uuid3, uuid4]
-    }
 
     @State private var selectedInput: InputList = InputList()
     

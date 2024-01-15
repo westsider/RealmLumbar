@@ -85,11 +85,20 @@ class InputList: Object, Identifiable {
         return retrievedObject
     }
     
+    static func getObjectWith(uuid: String) -> Results<InputList>  {
+        var items: Results<InputList> {
+            let realm = try! Realm()
+            return realm.objects(InputList.self).filter("singlePeripheralUUID == %@", uuid)
+        }
+        return items
+    }
+    
     static func updateItemPerifUUID(item: InputList, newUUID: String) {
+        print("in ")
         do {
             let realm = try Realm()
             
-            if let inputToChange = realm.object(ofType: InputList.self, forPrimaryKey: item._id) {
+            if let inputToChange = realm.object(ofType: InputList.self, forPrimaryKey: item.id) {
                 try realm.write {
                     inputToChange.singlePeripheralUUID = newUUID
                 }

@@ -176,7 +176,6 @@ struct CrosshairView: View {
         VStack {
             if inputList.isEmpty {
                 Text("No inputs Available")
-                
             }
             // may want to pick first incase more than one is selected bug
             Text("CrossHair")
@@ -190,17 +189,30 @@ struct CrosshairView: View {
             Text("Selected: \(newItem)")
         }.onAppear() {
             displaySelectedInput()
+            populateInputListWithAvailableDevices()
         }
     }
     
     // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
     // [X] show in this button view
     // [X] update the  Crosshair UI
+    // [ ] create a function that populated the InputList with available UUID's
+    
+    // replace 1 - 4 with actual id's
     
     func displaySelectedInput() {
         let uuidName = InputList.displaySelectedInput()
         print("\ngot selected item from model: \(uuidName)")
         selectedDeviceUUID = items.first?.singlePeripheralUUID ?? "No Selection"
+    }
+    
+    func populateInputListWithAvailableDevices() {
+        // just the first one for now...
+        // get the first
+        guard let firstSwitch = InputList.getObjectWith(uuid: "Device 1").first else { return }
+        print("here is the first switch \(firstSwitch.singlePeripheralUUID)")
+        // update the object
+        InputList.updateItemPerifUUID(item: firstSwitch, newUUID: "RJB6 1234.5678")
     }
 }
 struct GreyButtonSimple: ButtonStyle {
