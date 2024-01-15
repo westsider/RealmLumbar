@@ -20,13 +20,8 @@ struct SegmentedSwitchView: View {
         let uuid4 = inputList[3].singlePeripheralUUID
         return [uuid1, uuid2, uuid3, uuid4]
     }
-    
-    // 2. get selected uuid
-    // todo - this needs to be a string or send a string to realm
+
     @State private var selectedSegment = 0
-    
-    
-    // 3. send that back to realm to update the UI
     
     var body: some View {
         VStack {
@@ -41,14 +36,25 @@ struct SegmentedSwitchView: View {
             .onChange(of: selectedSegment) { newIndex in
                 let stringID = connectedDevices[newIndex]
                 switchSelectedInputFrom(stringID: stringID)
-                
+                debugWhichItemSelected()
             }
             
             Text("Selected UUID: \(connectedDevices[selectedSegment])")
                 .padding()
+            // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
+            // [ ] show in this button view
+            // [ ] show in main UI
+            
+
         }
     }
     
+    func debugWhichItemSelected() {
+        let isSelectedNow = InputList.getSelectedItem()
+        print(" selected item in switch view: \(isSelectedNow.first?.singlePeripheralUUID)")
+    }
+    
+    // this does now work!
     func switchSelectedInputFrom(stringID: String) {
         let itemSelected = InputList.getObject(id: stringID)
         InputList.updateSelectedUUID(item: itemSelected, isSelected: true)
