@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		985BB1362B557424005C4F9D /* SwitchSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985BB1352B557424005C4F9D /* SwitchSelectionView.swift */; };
+		983C9C6D2B55DE5D00872D03 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C9C6C2B55DE5D00872D03 /* TestView.swift */; };
 		986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986720CC2B4EFFB900745B7A /* LumbarRow.swift */; };
 		986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */; };
 		986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */; };
@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		985BB1352B557424005C4F9D /* SwitchSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSelectionView.swift; sourceTree = "<group>"; };
+		983C9C6C2B55DE5D00872D03 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		986720CC2B4EFFB900745B7A /* LumbarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumbarRow.swift; sourceTree = "<group>"; };
 		986DAAB52B4DEAC400C3B7D5 /* RealmLumbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmLumbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLumbarApp.swift; sourceTree = "<group>"; };
@@ -51,6 +51,7 @@
 		986DAAAC2B4DEAC400C3B7D5 = {
 			isa = PBXGroup;
 			children = (
+				983C9C6C2B55DE5D00872D03 /* TestView.swift */,
 				986DAAB72B4DEAC400C3B7D5 /* RealmLumbar */,
 				986DAAB62B4DEAC400C3B7D5 /* Products */,
 			);
@@ -70,7 +71,6 @@
 				986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */,
 				986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */,
 				989894792B51AAFB005A6682 /* SwitchInputView.swift */,
-				985BB1352B557424005C4F9D /* SwitchSelectionView.swift */,
 				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
 				9898947B2B51B3C8005A6682 /* Input Model.swift */,
@@ -172,8 +172,8 @@
 				986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */,
 				988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */,
 				986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */,
+				983C9C6D2B55DE5D00872D03 /* TestView.swift in Sources */,
 				986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */,
-				985BB1362B557424005C4F9D /* SwitchSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

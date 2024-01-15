@@ -165,6 +165,13 @@ struct CrosshairView: View {
     
     @ObservedResults(InputList.self) var inputList
     
+    @State private var selectedDeviceUUID: String = "No Device"
+    
+    var items: Results<InputList> {
+        let realm = try! Realm()
+        return realm.objects(InputList.self).filter("isSelectd == %@", true)
+    }
+    
     var body: some View {
         VStack {
             if inputList.isEmpty {
@@ -172,35 +179,28 @@ struct CrosshairView: View {
                 
             }
             // may want to pick first incase more than one is selected bug
+            Text("CrossHair")
             ForEach(selectedLumbars) { lumbar in
                 Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
             }
             ForEach(inputList) { input in
                 Text("\(input.singlePeripheralUUID)")
             }
+            Text("Selected: \(selectedDeviceUUID)")
         }.onAppear() {
-            if inputList.isEmpty {
-                generateInputListDefaults()
-            }
-            
-            updateInputListWithDevices()
+            displaySelectedInput()
         }
     }
     
-    func generateInputListDefaults()  {
-        for i in 1...4 {
-            $inputList.append(InputList.generateDefaultObject(num: i))
-        }
-    }
+    // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
+    // [X] show in this button view
+    // [ ] update the  Crosshair UI
     
-    func updateInputListWithDevices() {
-        print(" calling updateInputListWithDevices")
-
-        let item = InputList.getObject(id: "Device 1")
-        print("have item \(item._id)")
-        InputList.updateItemPerifUUID(item: item, newUUID: "RJB6 1234.5678")
+    func displaySelectedInput() {
+        let uuidName = InputList.displaySelectedInput()
+        print("\ngot selected item from model: \(uuidName)")
+        selectedDeviceUUID = items.first?.singlePeripheralUUID ?? "No Selection"
     }
-    
 }
 struct GreyButtonSimple: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

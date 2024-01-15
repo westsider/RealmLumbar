@@ -7,11 +7,13 @@
 
 import Foundation
 import RealmSwift
+import SwiftUI
 
 class Migrator {
     
     init() {
         //updateSchema()
+        //LumbarList.deleteRealm()
         //deleteAndReInit()
     }
     
@@ -58,3 +60,14 @@ class Migrator {
     }
     
 }
+
+struct TestScreen: View {
+    var body: some View {
+        Text("Testing")
+    }
+}
+
+//#Preview {
+//    TestScreen()
+//}
+

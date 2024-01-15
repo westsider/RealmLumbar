@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct SegmentedSwitchView: View {
-
+    
     @ObservedResults(InputList.self) var inputList
     
     var connectedDevices: [String] {
@@ -21,45 +21,60 @@ struct SegmentedSwitchView: View {
         return [uuid1, uuid2, uuid3, uuid4]
     }
 
-    @State private var selectedSegment = 0
+    @State private var selectedInput: InputList = InputList()
+    
+    @State private var selectedDeviceUUID: String = "No Device"
     
     var body: some View {
+        if inputList.isEmpty {
+            Text("No Inputs")
+            
+        }
         VStack {
-            Picker("Segmented Switch", selection: $selectedSegment) {
-                ForEach(0..<connectedDevices.count) { index in
-                    Text(connectedDevices[index])
+            Picker("Segmented Switch", selection: $selectedInput) {
+                ForEach(inputList) { index in
+                    Text("\(index.singlePeripheralUUID)")
                         .tag(index)
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
-            .onChange(of: selectedSegment) { newIndex in
-                let stringID = connectedDevices[newIndex]
-                switchSelectedInputFrom(stringID: stringID)
-                debugWhichItemSelected()
+            .onChange(of: selectedInput) { newIndex in
+                print(" onChange selectedInput: \(selectedInput.singlePeripheralUUID)")
+                selectNewInputInModel()
+                displaySelectedInput()
             }
-            
-            Text("Selected UUID: \(connectedDevices[selectedSegment])")
-                .padding()
-            // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
-            // [ ] show in this button view
-            // [ ] show in main UI
-            
-
+        }.onAppear() {
+            if inputList.isEmpty {
+                generateInputListDefaults()
+            }
+            displaySelectedInput()
+        }
+        
+        Text("Selected UUID: \(selectedDeviceUUID)")
+            .padding()
+    }
+    
+    func displaySelectedInput() {
+        let uuidName = InputList.displaySelectedInput()
+        print("\ngot selected item from model: \(uuidName)")
+        selectedDeviceUUID = uuidName
+    }
+    
+    func selectNewInputInModel() {
+        print("inside displaySelectedInput")
+        InputList.deSelectAllInputs()
+        print("unpate next")
+        InputList.updateSelectedUUID(item: selectedInput, isSelected: true)
+        
+    }
+    func generateInputListDefaults()  {
+        for i in 1...4 {
+            $inputList.append(InputList.generateDefaultObject(num: i))
         }
     }
-    
-    func debugWhichItemSelected() {
-        let isSelectedNow = InputList.getSelectedItem()
-        print(" selected item in switch view: \(isSelectedNow.first?.singlePeripheralUUID)")
-    }
-    
-    // this does now work!
-    func switchSelectedInputFrom(stringID: String) {
-        let itemSelected = InputList.getObject(id: stringID)
-        InputList.updateSelectedUUID(item: itemSelected, isSelected: true)
-    }
 }
+
 #Preview {
     SegmentedSwitchView()
 }
