@@ -19,7 +19,7 @@ class Migrator {
         // when running a new migration this top "1" number must be the same as
         // the new 'if oldSchemaVersion < 1 {'
         // make sure the class type is correct and the new value type
-        let config = Realm.Configuration(schemaVersion: 1) { migration, oldSchemaVersion in
+        let config = Realm.Configuration(schemaVersion: 2) { migration, oldSchemaVersion in
             
             if oldSchemaVersion < 1 {
                 // add new fields
@@ -27,13 +27,14 @@ class Migrator {
                     newObject!["isSelected"] = false
                 }
             }
-            /*
+            
             if oldSchemaVersion < 2 {
-                migration.enumerateObjects(ofType: LumbarList.className()) { _, newObject in
-                    newObject!["category"] = ""
+                migration.enumerateObjects(ofType: InputList.className()) { _, newObject in
+                    newObject!["singlePeripheralUUID"] = ""
+                    newObject!["isSelectd"] = false
                 }
             }
-            */
+            
         }
         
         Realm.Configuration.defaultConfiguration = config

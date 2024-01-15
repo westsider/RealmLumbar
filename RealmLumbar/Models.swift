@@ -5,9 +5,7 @@
 //  Created by Warren Hansen on 1/9/24.
 //
 
-import Foundation
 import RealmSwift
-import UIKit
 import SwiftUI
 
 class LumbarList: Object, Identifiable {
@@ -153,6 +151,21 @@ class LumbarList: Object, Identifiable {
             realm.deleteAll()
         }
     }
+    
+    func deleteAndReinitializeRealmDatabase() {
+        let config = Realm.Configuration.defaultConfiguration
+        do {
+            if let fileURL = config.fileURL {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            let newRealm = try Realm(configuration: config)
+            // Now 'newRealm' is a fresh instance of Realm with no data
+            // You can start using it for your application
+        } catch {
+            print("Error deleting and reinitializing Realm database: \(error)")
+        }
+    }
+
 }
 
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		982467AC2B50641400BCDFBB /* HighlightRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982467AB2B50641400BCDFBB /* HighlightRow.swift */; };
+		985BB1362B557424005C4F9D /* SwitchSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985BB1352B557424005C4F9D /* SwitchSelectionView.swift */; };
 		986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986720CC2B4EFFB900745B7A /* LumbarRow.swift */; };
 		986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */; };
 		986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */; };
@@ -16,12 +16,13 @@
 		986DAAC82B4DEAFD00C3B7D5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 986DAAC72B4DEAFD00C3B7D5 /* Realm */; };
 		986DAACA2B4DEAFD00C3B7D5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 986DAAC92B4DEAFD00C3B7D5 /* RealmSwift */; };
 		986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAACB2B4DEB1800C3B7D5 /* Models.swift */; };
-		986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */; };
 		988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988FE96F2B504D9C00B5A64A /* Migrator.swift */; };
+		9898947A2B51AAFB005A6682 /* SwitchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989894792B51AAFB005A6682 /* SwitchInputView.swift */; };
+		9898947C2B51B3C8005A6682 /* Input Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898947B2B51B3C8005A6682 /* Input Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		982467AB2B50641400BCDFBB /* HighlightRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRow.swift; sourceTree = "<group>"; };
+		985BB1352B557424005C4F9D /* SwitchSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchSelectionView.swift; sourceTree = "<group>"; };
 		986720CC2B4EFFB900745B7A /* LumbarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumbarRow.swift; sourceTree = "<group>"; };
 		986DAAB52B4DEAC400C3B7D5 /* RealmLumbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmLumbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLumbarApp.swift; sourceTree = "<group>"; };
@@ -29,8 +30,9 @@
 		986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		986DAABF2B4DEAC500C3B7D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		986DAACB2B4DEB1800C3B7D5 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingListScreen.swift; sourceTree = "<group>"; };
 		988FE96F2B504D9C00B5A64A /* Migrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrator.swift; sourceTree = "<group>"; };
+		989894792B51AAFB005A6682 /* SwitchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchInputView.swift; sourceTree = "<group>"; };
+		9898947B2B51B3C8005A6682 /* Input Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Input Model.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +69,11 @@
 			children = (
 				986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */,
 				986DAABA2B4DEAC400C3B7D5 /* ContentView.swift */,
-				986DAACD2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift */,
+				989894792B51AAFB005A6682 /* SwitchInputView.swift */,
+				985BB1352B557424005C4F9D /* SwitchSelectionView.swift */,
 				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
-				982467AB2B50641400BCDFBB /* HighlightRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
+				9898947B2B51B3C8005A6682 /* Input Model.swift */,
 				988FE96F2B504D9C00B5A64A /* Migrator.swift */,
 				986DAABC2B4DEAC500C3B7D5 /* Assets.xcassets */,
 				986DAABE2B4DEAC500C3B7D5 /* Preview Content */,
@@ -164,12 +167,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */,
+				9898947C2B51B3C8005A6682 /* Input Model.swift in Sources */,
+				9898947A2B51AAFB005A6682 /* SwitchInputView.swift in Sources */,
 				986DAABB2B4DEAC400C3B7D5 /* ContentView.swift in Sources */,
-				982467AC2B50641400BCDFBB /* HighlightRow.swift in Sources */,
 				988FE9702B504D9C00B5A64A /* Migrator.swift in Sources */,
 				986DAAB92B4DEAC400C3B7D5 /* RealmLumbarApp.swift in Sources */,
-				986DAACE2B4DEB8B00C3B7D5 /* AddShoppingListScreen.swift in Sources */,
 				986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */,
+				985BB1362B557424005C4F9D /* SwitchSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

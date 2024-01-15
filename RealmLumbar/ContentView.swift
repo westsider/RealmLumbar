@@ -104,6 +104,7 @@ struct ContentView: View {
                         
                     }
                 }.onAppear() {
+
                     // select the first lumbar when view first appears
                     switchSideSelectsFirstLumbar()
                     if items.isEmpty {
@@ -111,6 +112,7 @@ struct ContentView: View {
                     }
                 }
                 Spacer()
+                // this is the main view
                 CrosshairView()
             }.padding()
         }
@@ -154,13 +156,58 @@ struct ContentView: View {
 
 
 struct CrosshairView: View {
+    
     @ObservedResults(LumbarList.self, where: { $0.isSelected == true }) var selectedLumbars
+    
+    @ObservedResults(InputList.self) var foundDeviceUUIDs
+    
     var body: some View {
         // may want to pick first incase more than one is selected bug
         ForEach(selectedLumbars) { lumbar in
             Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
+        }.onAppear() {
+            
+            
+            // append a text id
+            //InputList().addUUIDToREalm(foundDevice: "First ID")
+            
+            
+//            // get uuids from bt delegate
+//            //foundDeviceUUIDs.first?.peripheralUUID = ["UUID 1234.5678"]
+//            
+//            do {
+//                let realm = try Realm()
+//                let newString = "NewUUID"
+//                    try? realm.write {
+//                        foundDeviceUUIDs.first?.peripheralUUID.append(newString)
+//                    }
+//            }
+//            catch
+//            {
+//             pr
+//            }
+           
         }
     }
+    
+//    func addUUIDToREalm(foundDevice: String) {
+//        // Open a Realm write transaction
+//        let realm = try! Realm()
+//        try! realm.write {
+//            let thisList = foundDeviceUUIDs.first?._id
+//            // Retrieve the 'inputList' object (replace with the actual object you want to modify)
+//            let inputList = realm.object(ofType: InputList.self, forPrimaryKey: thisList)
+//            
+//            // Check if the 'inputList' object exists
+//            if let inputList = inputList {
+//                // Append strings to the 'peripheralUUID' property
+//                inputList.peripheralUUID.append("String1")
+//                inputList.peripheralUUID.append("String2")
+//                // Add more strings as needed
+//            }
+//        }
+//    }
+    
 }
 struct GreyButtonSimple: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
