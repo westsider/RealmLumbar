@@ -11,7 +11,22 @@ import RealmSwift
 class Migrator {
     
     init() {
-        updateSchema()
+        //updateSchema()
+        deleteAndReInit()
+    }
+    
+    func deleteAndReInit() {
+        let config = Realm.Configuration.defaultConfiguration
+        do {
+            if let fileURL = config.fileURL {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            let newRealm = try Realm(configuration: config)
+            // Now 'newRealm' is a fresh instance of Realm with no data
+            // You can start using it for your application
+        } catch {
+            print("Error deleting and reinitializing Realm database: \(error)")
+        }
     }
     
     func updateSchema() {

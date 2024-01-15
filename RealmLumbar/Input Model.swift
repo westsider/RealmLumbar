@@ -13,6 +13,8 @@ class InputList: Object, Identifiable {
     @Persisted var singlePeripheralUUID: String
     @Persisted var isSelectd: Bool
     
+    @Persisted var newBool: Bool
+    
     override class func primaryKey() -> String? {
         "id"
     }
