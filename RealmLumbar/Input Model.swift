@@ -17,6 +17,52 @@ class InputList: Object, Identifiable {
         "id"
     }
     
+    
+    
+    
+    static func updateSelectedUUID(item: InputList, isSelected: Bool) {
+        do {
+            let realm = try Realm()
+            
+            if let inputToChange = realm.object(ofType: InputList.self, forPrimaryKey: item._id) {
+                try realm.write {
+                    inputToChange.isSelectd = isSelected
+                }
+            }
+        } catch {
+            print("An error occurred while updating the LumbarList: \(error)")
+        }
+    }
+    
+    static func deSelectAllInputs() {
+        do {
+            let realm = try! Realm()
+
+            // Retrieve all objects of the InputList class
+            let inputLists = realm.objects(InputList.self)
+
+            // Open a Realm write transaction
+            try! realm.write {
+                // Loop through each object and set isSelected to false
+                for inputList in inputLists {
+                    inputList.isSelectd = false
+                }
+            }
+        } catch {
+            print("An error occurred while updating the LumbarList: \(error)")
+        }
+    }
+    
+    static func getSelectedItem() -> Results<InputList> {
+        var item: Results<InputList> {
+            let realm = try! Realm()
+            return realm.objects(InputList.self).filter("isSelectd == %@", true)
+        }
+        //print("Realm found Selected Item: ID: \(item.first?.id), IS SELECTED: \(item.first?.isSelectd), UUID: \(item.first?.singlePeripheralUUID)")
+        
+        return item
+    }
+    
     static func getObject(id: String) -> InputList {
         
         var retrievedObject = InputList()
@@ -37,9 +83,9 @@ class InputList: Object, Identifiable {
         do {
             let realm = try Realm()
             
-            if let inpurtToChange = realm.object(ofType: InputList.self, forPrimaryKey: item._id) {
+            if let inputToChange = realm.object(ofType: InputList.self, forPrimaryKey: item._id) {
                 try realm.write {
-                    inpurtToChange.singlePeripheralUUID = newUUID
+                    inputToChange.singlePeripheralUUID = newUUID
                 }
             }
         } catch {
@@ -87,4 +133,3 @@ class InputList: Object, Identifiable {
         
     }
 }
-
