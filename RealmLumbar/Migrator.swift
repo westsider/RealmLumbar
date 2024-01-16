@@ -12,9 +12,9 @@ import SwiftUI
 class Migrator {
     
     init() {
-//        updateSchema()
-       // LumbarList.deleteRealm()
-        //deleteAndReInit()
+        //updateSchema()
+        //LumbarList.deleteRealm() // when changing databage - use first then test view
+        //deleteAndReInit()           // when changing databage - use second then test view
     }
     
     func deleteAndReInit() {
@@ -36,21 +36,22 @@ class Migrator {
         // when running a new migration this top "1" number must be the same as
         // the new 'if oldSchemaVersion < 1 {'
         // make sure the class type is correct and the new value type
-        let config = Realm.Configuration(schemaVersion: 2) { migration, oldSchemaVersion in
-            
+        let config = Realm.Configuration(schemaVersion: 1) { migration, oldSchemaVersion in
+            /*
             if oldSchemaVersion < 1 {
                 // add new fields
                 migration.enumerateObjects(ofType: LumbarList.className()) { _, newObject in
                     newObject!["isSelected"] = false
                 }
-            }
+            } */
             
+            /*
             if oldSchemaVersion < 2 {
                 migration.enumerateObjects(ofType: InputList.className()) { _, newObject in
                     newObject!["singlePeripheralUUID"] = ""
                     newObject!["isSelectd"] = false
                 }
-            }
+            }*/
             
         }
         

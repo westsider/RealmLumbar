@@ -9,9 +9,9 @@ import SwiftUI
 
 // [X] pressing hold changes button to clear hold
 // [X] add model hold bool. hold value
-// [ ] add state to crosshair
+// [X] add state to crosshair
 // [ ] in crosshair when button pressed get/persist hold value from datastream - object func
-//  [ ] in crosshair show hold values - object func
+//  [X] in crosshair show hold values - object func
 //  [ ] HOLDING AT - red
 //  [ ] 61.5 - - boxed
 //  [ ] later but have infrastructure
@@ -25,8 +25,10 @@ class HoldOffsetState: Object, Identifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var isHoldButtonOn = false
     @Persisted var isOffsetButtonOn = false
-    @Persisted var holdValue: Double  = 0.0
-    @Persisted var offsetValue: Double  = 0.0
+    @Persisted var holdValueSagittal: Double  = 0.0
+    @Persisted var holdValueAxial: Double  = 0.0
+    @Persisted var offsetValueSagittal: Double  = 0.0
+    @Persisted var offsetValueAxial: Double  = 0.0
     
     override class func primaryKey() -> String? {
         "id"
@@ -36,8 +38,10 @@ class HoldOffsetState: Object, Identifiable {
         let retrievedObject = HoldOffsetState()
         retrievedObject.isHoldButtonOn = holdState
         retrievedObject.isOffsetButtonOn = offsetState
-        retrievedObject.holdValue  = 0.0
-        retrievedObject.offsetValue  = 0.0
+        retrievedObject.holdValueSagittal  = 0.0
+        retrievedObject.holdValueAxial  = 0.0
+        retrievedObject.offsetValueSagittal  = 0.0
+        retrievedObject.offsetValueAxial  = 0.0
         return retrievedObject
     }
      
@@ -53,6 +57,22 @@ class HoldOffsetState: Object, Identifiable {
             }
         } catch {
             print("An error occurred while updating the LumbarList: \(error)")
+        }
+    }
+    
+    // in crosshair when button pressed get/persist hold value from datastream - object func
+    static func persistHoldValues(id: ObjectId, axial: Double, sagittal: Double) {
+        
+        do {
+            let realm = try Realm()
+            if let item = realm.object(ofType: HoldOffsetState.self, forPrimaryKey: id) {
+                try realm.write {
+                    item.holdValueAxial = axial
+                    item.holdValueSagittal = sagittal
+                }
+            }
+        } catch {
+            print("An error occurred while updating the HoldOffsetState: \(error)")
         }
     }
 }
@@ -121,9 +141,8 @@ struct HoldOffsetView: View {
         }
     }
     
-    //MARK: - Todo - place this check in the crosshair view where its first called
     func checkForExistingHoldOffsetObject() {
-        if let id = holdOffsetState.first?.id {
+        if let _ = holdOffsetState.first?.id {
             //print(id)
         } else {
             print("failed to get id for HOLDOFFSET")

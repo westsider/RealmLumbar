@@ -197,11 +197,26 @@ struct CrosshairView: View {
                 Text("Hold Button: \(holdOffsetState.first?.isHoldButtonOn ?? false ? "On" : "Off")")
                 Text("Offset Button: \(holdOffsetState.first?.isOffsetButtonOn ?? false ? "On" : "Off")")
             }
+            HStack {
+                //Text("hold ax: \(holdOffsetState.first?.holdValueAxial)")
+                if let firstHoldOffsetState = holdOffsetState.first {
+                    Text("Hold Value Sg: \(firstHoldOffsetState.holdValueSagittal)")
+                    Text("Hold Value Ax: \(firstHoldOffsetState.holdValueAxial)")
+                }
+            }
             
         }.onAppear() {
             displaySelectedInput()
             populateInputListWithAvailableDevices()
             populateHoldOffsetObject()
+            //MARK: - todo - place this where the hold bool gets updated
+            updateHoldValues(axial: 100.0, sagittal: -200.0 )
+        }
+    }
+    
+    func updateHoldValues(axial: Double, sagittal: Double) {
+        if let thisObject = holdOffsetState.first {
+            HoldOffsetState.persistHoldValues(id: thisObject.id, axial: axial, sagittal: sagittal)
         }
     }
     
@@ -220,16 +235,16 @@ struct CrosshairView: View {
     }
     
     func populateHoldOffsetObject() {
-        if let id = holdOffsetState.first?.id {
+        if let _ = holdOffsetState.first?.id {
             //print(id)
         } else {
-           // print("failed to get id for HOLDOFFSET")
+            // print("failed to get id for HOLDOFFSET")
             // becaue we need to create the first object
             $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: false, offsetState: false))
         }
         
     }
-     
+    
 }
 struct GreyButtonSimple: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
