@@ -150,9 +150,9 @@ struct ContentView: View {
 //  [X] test on device
 //  [X] func to get hold on offset and values from main view
 
-//  [ ] OFFSET
-//  [ ] when pressed save the current live values
-//  [ ] add offset to live numbers
+//  [X] OFFSET
+//  [X] when pressed save the current live values
+//  [ X add offset to live numbers
 
 
 struct CrosshairView: View {
@@ -192,18 +192,30 @@ struct CrosshairView: View {
                 Text("Offset Button: \(holdOffsetState.first?.isOffsetButtonOn ?? false ? "On" : "Off")")
             }
             VStack {
-                //show hold values only when holding is true
+                
                 if let firstHoldOffsetState = holdOffsetState.first {
                     let axial = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueAxial)
                     let sagittal = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueSagittal)
+                    
+                    //show hold values only when holding is true
                     if let holding = holdOffsetState.first?.isHoldButtonOn {
                         if holding  {
                             Text("HOLDING AT: Ax: \(axial)")
                             Text("HOLDING AT:  Sg: \(sagittal)")
                         }
                     }
+                    
+                    let axialOffset = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.offsetValueAxial)
+                    let sagittalOffset = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.offsetValueSagittal)
+                    //show offset values only when offset is true
+                    if let offset = holdOffsetState.first?.isOffsetButtonOn {
+                        if offset  {
+                            Text("Offset AT: Ax: \(axialOffset)")
+                            Text("offset AT:  Sg: \(sagittalOffset)")
+                        }
+                    }
                 }
-            }
+            }   /// when a change of the hold buttton is detected, get the hold values
             .onChange(of: holdOffsetState.first?.isHoldButtonOn) {  newValue in
                 if newValue ?? false {
                     //print("hold is true")
@@ -212,6 +224,17 @@ struct CrosshairView: View {
                 } else {
                    // print("hold is false")
                     updateHoldValues(axial: 0.0, sagittal: 0.0 )
+                }
+            } // change of offset button
+            .onChange(of: holdOffsetState.first?.isOffsetButtonOn) {  newValue in
+                if newValue ?? false {
+                    //print("hold is true")
+                    //MARK: - TODO: - get offset values from selected input
+                    updateOffsetValues(axial: 99.9, sagittal: 88.8 )
+                } else {
+                   // print("hold is false")
+                    // reset offset to 0.0
+                    updateOffsetValues(axial: 0.0, sagittal: 0.0 )
                 }
             }
             
@@ -251,6 +274,13 @@ struct CrosshairView: View {
     func updateHoldValues(axial: Double, sagittal: Double) {
         if let thisObject = holdOffsetState.first {
             HoldOffsetState.persistHoldValues(id: thisObject.id, axial: axial, sagittal: sagittal)
+        }
+    }
+    
+    //////--------------
+    func updateOffsetValues(axial: Double, sagittal: Double) {
+        if let thisObject = holdOffsetState.first {
+            HoldOffsetState.persistOffsetValues(id: thisObject.id, axial: axial, sagittal: sagittal)
         }
     }
     
