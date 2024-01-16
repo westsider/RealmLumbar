@@ -118,6 +118,10 @@ struct ContentView: View {
                 // this is theinput switch
                 //-----------------------------
                 SegmentedSwitchView()
+                //----------------------------
+                // this is hold offset switches
+                //-----------------------------
+                HoldOffsetView()
             }.padding()
         }
     }
@@ -134,7 +138,7 @@ struct ContentView: View {
         LumbarList.removeIsSectedItem()
         LumbarList.updateItemAsSelected(item: item)
     }
-
+    
     
     func generateLumbatListDefaults()  {
         for i in 1...4 {
@@ -165,7 +169,11 @@ struct CrosshairView: View {
     
     @ObservedResults(InputList.self) var inputList
     
+    @ObservedResults(HoldOffsetState.self) var holdOffsetState
+    
     @State private var selectedDeviceUUID: String = "No Device"
+    
+    @State private var isHolding: Bool = false
     
     var items: Results<InputList> {
         let realm = try! Realm()
@@ -182,22 +190,45 @@ struct CrosshairView: View {
             ForEach(selectedLumbars) { lumbar in
                 Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
             }
-            // debug all intruments
-            /*ForEach(inputList) { input in
-                Text("\(input.singlePeripheralUUID)")
-            }*/
             let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
-            Text("Selected: \(newItem)")
+            Text("Selected Input: \(newItem)")
+            HStack {
+                ForEach(holdOffsetState) { state in
+                    if state.isHoldButtonOn {
+                        Text("holding")
+                    } else {
+                        Text("Not Holding")
+                    }
+                }
+                ForEach(holdOffsetState) { state in
+                    if state.isOffsetButtonOn {
+                        Text("Offset")
+                    } else {
+                        Text("Not Offset")
+                    }
+                }
+            }
+            
         }.onAppear() {
             displaySelectedInput()
             populateInputListWithAvailableDevices()
         }
     }
-
+    
+//    func showHoldingState() -> Text {
+//        var holdingText = "NA"
+//        //ForEach(holdOffsetState) { state in
+//        if ((holdOffsetState.first?.isHoldButtonOn) != nil) {
+//                holdingText = ("holding")
+//            } else {
+//                holdingText = "Not Holding"
+//            }
+//        //}
+//        return Text(holdingText)
+//    }
+    
     // replace 1 - 4 with actual id's
     func displaySelectedInput() {
-        //let uuidName = InputList.displaySelectedInput()
-       // print("\ngot selected item from model: \(uuidName)")
         selectedDeviceUUID = items.first?.singlePeripheralUUID ?? "No Selection"
     }
     
@@ -213,14 +244,14 @@ struct CrosshairView: View {
     /*
      //MARK: - Todo - place this check in the crosshair view where its first called
      func checkForExistingHoldOffsetObject() {
-         if let id = holdOffsetState.first?.id {
-             print(id)
-         } else {
-             print("failed to get id for HOLDOFFSET")
-             // becaue we need to create the first object
-             $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: isHoldButtonOn, offsetState: isOffsetButtonOn))
-         }
-        
+     if let id = holdOffsetState.first?.id {
+     print(id)
+     } else {
+     print("failed to get id for HOLDOFFSET")
+     // becaue we need to create the first object
+     $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: isHoldButtonOn, offsetState: isOffsetButtonOn))
+     }
+     
      }
      */
 }

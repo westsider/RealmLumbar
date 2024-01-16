@@ -107,11 +107,7 @@ struct HoldOffsetView: View {
         }
         .padding()
     }
-    
-//    func getObject(funcId: id) {
-//        
-//    }
-    
+
     func persistValuesToRealm() {
         if let id = holdOffsetState.first?.id {
            // print(id)
@@ -128,10 +124,8 @@ struct HoldOffsetView: View {
         } else {
             print("failed to get id for HOLDOFFSET")
             // becaue we need to create the first object
-            //MARK: - Todo - place this check in the crosshair view where its first called
             $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: isHoldButtonOn, offsetState: isOffsetButtonOn))
         }
-       
     }
 }
 
