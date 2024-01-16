@@ -189,7 +189,9 @@ struct CrosshairView: View {
             // may want to pick first incase more than one is selected bug
             Text("CrossHair")
             ForEach(selectedLumbars) { lumbar in
-                Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
+                let axial = Utilities.oneDecimal(fromDouble: lumbar.axial)
+                let sagittal = Utilities.oneDecimal(fromDouble: lumbar.sagital)
+                Text("\(lumbar.title) - Axial: \(axial), Sagital: \(sagittal)")
             }
             let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
             Text("Selected Input: \(newItem)")
@@ -200,8 +202,10 @@ struct CrosshairView: View {
             HStack {
                 //Text("hold ax: \(holdOffsetState.first?.holdValueAxial)")
                 if let firstHoldOffsetState = holdOffsetState.first {
-                    Text("Hold Value Sg: \(firstHoldOffsetState.holdValueSagittal)")
-                    Text("Hold Value Ax: \(firstHoldOffsetState.holdValueAxial)")
+                    let axial = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueAxial)
+                    let sagittal = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueSagittal)
+                    Text("Hold Value Ax: \(axial)")
+                    Text("Hold Value Sg: \(sagittal)")
                 }
             }
             
