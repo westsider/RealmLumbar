@@ -12,8 +12,8 @@ import SwiftUI
 class Migrator {
     
     init() {
-        //updateSchema()
-        //LumbarList.deleteRealm()
+//        updateSchema()
+       // LumbarList.deleteRealm()
         //deleteAndReInit()
     }
     

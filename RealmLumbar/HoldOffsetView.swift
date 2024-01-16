@@ -8,7 +8,7 @@
 import SwiftUI
 
 // [X] pressing hold changes button to clear hold
-// [ ] add model hold bool. hold value
+// [X] add model hold bool. hold value
 // [ ] add state to crosshair
 // [ ] in crosshair when button pressed get/persist hold value from datastream - object func
 //  [ ] in crosshair show hold values - object func
@@ -19,12 +19,50 @@ import SwiftUI
 
 // offset presssed clear offset, digital numbers got to 0.0
 
-import SwiftUI
+import RealmSwift
+
+class HoldOffsetState: Object, Identifiable {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var isHoldButtonOn = false
+    @Persisted var isOffsetButtonOn = false
+    @Persisted var holdValue: Double  = 0.0
+    @Persisted var offsetValue: Double  = 0.0
+    
+    override class func primaryKey() -> String? {
+        "id"
+    }
+    
+    static func createFirstObject(holdState: Bool, offsetState: Bool) -> HoldOffsetState {
+        let retrievedObject = HoldOffsetState()
+        retrievedObject.isHoldButtonOn = holdState
+        retrievedObject.isOffsetButtonOn = offsetState
+        retrievedObject.holdValue  = 0.0
+        retrievedObject.offsetValue  = 0.0
+        return retrievedObject
+    }
+     
+    static func updateButtonState(id: ObjectId, isHoldButtonOn: Bool, isOffsetButtonOn: Bool) {
+        do {
+            let realm = try Realm()
+            
+            if let buttonToChange = realm.object(ofType: HoldOffsetState.self, forPrimaryKey: id) {
+                try realm.write {
+                    buttonToChange.isHoldButtonOn = isHoldButtonOn
+                    buttonToChange.isOffsetButtonOn = isOffsetButtonOn
+                }
+            }
+        } catch {
+            print("An error occurred while updating the LumbarList: \(error)")
+        }
+    }
+}
+
 
 struct HoldOffsetView: View {
     @State private var isHoldButtonOn = false
     @State private var isOffsetButtonOn = false
-
+    @ObservedResults(HoldOffsetState.self) var holdOffsetState
+    
     var body: some View {
         HStack {
             Button(action: {
@@ -32,13 +70,12 @@ struct HoldOffsetView: View {
                 if self.isHoldButtonOn {
                     self.isOffsetButtonOn = false
                 }
+                persistValuesToRealm()
             }) {
                 Text(isHoldButtonOn ? "CLEAR HOLD" : "HOLD")
-                    .bold()
-                    .frame(maxWidth: .infinity, maxHeight: 40)
                     .foregroundColor(.black)
                     .padding()
-                    .background(isHoldButtonOn ? Color.blue.opacity(0.5) : Color.gray.opacity(0.5))
+                    .background(isHoldButtonOn ? Color.blue.opacity(0.5) : Color.gray)
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -52,13 +89,12 @@ struct HoldOffsetView: View {
                 if self.isOffsetButtonOn {
                     self.isHoldButtonOn = false
                 }
+                persistValuesToRealm()
             }) {
                 Text(isOffsetButtonOn ? "CLEAR OFFSET" : "OFFSET")
-                    .bold()
-                    .frame(maxWidth: .infinity, maxHeight: 40)
                     .foregroundColor(.black)
                     .padding()
-                    .background(isOffsetButtonOn ? Color.blue.opacity(0.5) : Color.gray.opacity(0.5))
+                    .background(isOffsetButtonOn ? Color.blue.opacity(0.5) : Color.gray)
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -66,10 +102,39 @@ struct HoldOffsetView: View {
                     )
             }
             .disabled(isHoldButtonOn)
+        }.onAppear() {
+            checkForExistingHoldOffsetObject()
         }
         .padding()
     }
+    
+//    func getObject(funcId: id) {
+//        
+//    }
+    
+    func persistValuesToRealm() {
+        if let id = holdOffsetState.first?.id {
+           // print(id)
+            HoldOffsetState.updateButtonState(id: id, isHoldButtonOn: isHoldButtonOn, isOffsetButtonOn: isOffsetButtonOn)
+        } else {
+            print("failed to get HOLDOFFSET id")
+        }
+    }
+    
+    //MARK: - Todo - place this check in the crosshair view where its first called
+    func checkForExistingHoldOffsetObject() {
+        if let id = holdOffsetState.first?.id {
+            //print(id)
+        } else {
+            print("failed to get id for HOLDOFFSET")
+            // becaue we need to create the first object
+            //MARK: - Todo - place this check in the crosshair view where its first called
+            $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: isHoldButtonOn, offsetState: isOffsetButtonOn))
+        }
+       
+    }
 }
+
 
 #Preview {
     HoldOffsetView()
