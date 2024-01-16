@@ -163,6 +163,10 @@ struct ContentView: View {
     ContentView()
 }
 
+//  [ ] HOLDING AT - red
+//  [ ] 61.5 - - boxed
+//  [ ] later but have infrastructure
+//  [ ] final get hold on off and values from main view
 
 struct CrosshairView: View {
     
@@ -200,22 +204,26 @@ struct CrosshairView: View {
                 Text("Hold Button: \(holdOffsetState.first?.isHoldButtonOn ?? false ? "On" : "Off")")
                 Text("Offset Button: \(holdOffsetState.first?.isOffsetButtonOn ?? false ? "On" : "Off")")
             }
-            HStack {
-                //show hold values
+            VStack {
+                //show hold values only when holding is true
                 if let firstHoldOffsetState = holdOffsetState.first {
                     let axial = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueAxial)
                     let sagittal = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueSagittal)
-                    Text("Hold Value Ax: \(axial)")
-                    Text("Hold Value Sg: \(sagittal)")
+                    if let holding = holdOffsetState.first?.isHoldButtonOn {
+                        if holding  {
+                            Text("HOLDING AT: Ax: \(axial)")
+                            Text("HOLDING AT:  Sg: \(sagittal)")
+                        }
+                    }
                 }
             }
             .onChange(of: holdOffsetState.first?.isHoldButtonOn) {  newValue in
                 if newValue ?? false {
-                    print("hold is true")
+                    //print("hold is true")
                     //MARK: - TODO: - get hold values from selected input
                     updateHoldValues(axial: 100.0, sagittal: -200.0 )
                 } else {
-                    print("hold is false")
+                   // print("hold is false")
                     updateHoldValues(axial: 0.0, sagittal: 0.0 )
                 }
             }

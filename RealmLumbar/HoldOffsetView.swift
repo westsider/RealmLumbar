@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-// [X] pressing hold changes button to clear hold
-// [X] add model hold bool. hold value
-// [X] add state to crosshair
-// [ ] in crosshair when button pressed get/persist hold value from datastream - object func
-//  [X] in crosshair show hold values - object func
-//  [ ] HOLDING AT - red
-//  [ ] 61.5 - - boxed
-//  [ ] later but have infrastructure
-//  [ ] final get hold on off and values from main view
-
-// offset presssed clear offset, digital numbers got to 0.0
-
 import RealmSwift
 
 class HoldOffsetState: Object, Identifiable {
