@@ -100,6 +100,7 @@ struct ContentView: View {
                             newLumbarObject(leftOn: leftSelected)
                         } label: {
                             Image(systemName: "plus")
+                                .foregroundStyle(Color.black)
                         }
                         
                     }
@@ -147,7 +148,7 @@ struct ContentView: View {
     }
     
     func newLumbarObject(leftOn: Bool)  {
-        let num = lumbarList.count + 1
+        let num = items.count + 1
         let retrievedObject = LumbarList()
         retrievedObject.title = "L\(num)"
         retrievedObject.axial = 10.0
