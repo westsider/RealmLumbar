@@ -195,12 +195,13 @@ struct CrosshairView: View {
             }
             let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
             Text("Selected Input: \(newItem)")
+            // hold / offset button states
             HStack {
                 Text("Hold Button: \(holdOffsetState.first?.isHoldButtonOn ?? false ? "On" : "Off")")
                 Text("Offset Button: \(holdOffsetState.first?.isOffsetButtonOn ?? false ? "On" : "Off")")
             }
             HStack {
-                //Text("hold ax: \(holdOffsetState.first?.holdValueAxial)")
+                //show hold values
                 if let firstHoldOffsetState = holdOffsetState.first {
                     let axial = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueAxial)
                     let sagittal = Utilities.oneDecimal(fromDouble: firstHoldOffsetState.holdValueSagittal)
@@ -208,13 +209,21 @@ struct CrosshairView: View {
                     Text("Hold Value Sg: \(sagittal)")
                 }
             }
+            .onChange(of: holdOffsetState.first?.isHoldButtonOn) {  newValue in
+                if newValue ?? false {
+                    print("hold is true")
+                    //MARK: - TODO: - get hold values from selected input
+                    updateHoldValues(axial: 100.0, sagittal: -200.0 )
+                } else {
+                    print("hold is false")
+                    updateHoldValues(axial: 0.0, sagittal: 0.0 )
+                }
+            }
             
         }.onAppear() {
             displaySelectedInput()
             populateInputListWithAvailableDevices()
             populateHoldOffsetObject()
-            //MARK: - todo - place this where the hold bool gets updated
-            updateHoldValues(axial: 100.0, sagittal: -200.0 )
         }
     }
     
