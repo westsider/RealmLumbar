@@ -194,20 +194,8 @@ struct CrosshairView: View {
             let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
             Text("Selected Input: \(newItem)")
             HStack {
-                ForEach(holdOffsetState) { state in
-                    if state.isHoldButtonOn {
-                        Text("holding")
-                    } else {
-                        Text("Not Holding")
-                    }
-                }
-                ForEach(holdOffsetState) { state in
-                    if state.isOffsetButtonOn {
-                        Text("Offset")
-                    } else {
-                        Text("Not Offset")
-                    }
-                }
+                Text("Hold Button: \(holdOffsetState.first?.isHoldButtonOn ?? false ? "On" : "Off")")
+                Text("Offset Button: \(holdOffsetState.first?.isOffsetButtonOn ?? false ? "On" : "Off")")
             }
             
         }.onAppear() {
@@ -215,18 +203,6 @@ struct CrosshairView: View {
             populateInputListWithAvailableDevices()
         }
     }
-    
-//    func showHoldingState() -> Text {
-//        var holdingText = "NA"
-//        //ForEach(holdOffsetState) { state in
-//        if ((holdOffsetState.first?.isHoldButtonOn) != nil) {
-//                holdingText = ("holding")
-//            } else {
-//                holdingText = "Not Holding"
-//            }
-//        //}
-//        return Text(holdingText)
-//    }
     
     // replace 1 - 4 with actual id's
     func displaySelectedInput() {
