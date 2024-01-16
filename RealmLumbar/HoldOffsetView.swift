@@ -62,6 +62,7 @@ struct HoldOffsetView: View {
     @State private var isHoldButtonOn = false
     @State private var isOffsetButtonOn = false
     @ObservedResults(HoldOffsetState.self) var holdOffsetState
+    let buttonColor = Color.gray.opacity(0.3)
     
     var body: some View {
         HStack {
@@ -73,14 +74,16 @@ struct HoldOffsetView: View {
                 persistValuesToRealm()
             }) {
                 Text(isHoldButtonOn ? "CLEAR HOLD" : "HOLD")
+                    .frame(maxWidth: .infinity, maxHeight: 40)
                     .foregroundColor(.black)
                     .padding()
-                    .background(isHoldButtonOn ? Color.blue.opacity(0.5) : Color.gray)
-                    .cornerRadius(10)
+                    .background(isHoldButtonOn ? Color.blue.opacity(0.5) : buttonColor)
+                    //.cornerRadius(10)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.black, lineWidth: 2)
                     )
+                
             }
             .disabled(isOffsetButtonOn)
             
@@ -92,12 +95,13 @@ struct HoldOffsetView: View {
                 persistValuesToRealm()
             }) {
                 Text(isOffsetButtonOn ? "CLEAR OFFSET" : "OFFSET")
+                    .frame(maxWidth: .infinity, maxHeight: 40)
                     .foregroundColor(.black)
                     .padding()
-                    .background(isOffsetButtonOn ? Color.blue.opacity(0.5) : Color.gray)
-                    .cornerRadius(10)
+                    .background(isOffsetButtonOn ? Color.blue.opacity(0.5) : buttonColor)
+                    //.cornerRadius(10)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.black, lineWidth: 2)
                     )
             }

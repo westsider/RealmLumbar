@@ -201,6 +201,7 @@ struct CrosshairView: View {
         }.onAppear() {
             displaySelectedInput()
             populateInputListWithAvailableDevices()
+            populateHoldOffsetObject()
         }
     }
     
@@ -218,19 +219,17 @@ struct CrosshairView: View {
         InputList.updateItemPerifUUID(item: firstSwitch, newUUID: "RJB6 1234.5678")
     }
     
-    /*
-     //MARK: - Todo - place this check in the crosshair view where its first called
-     func checkForExistingHoldOffsetObject() {
-     if let id = holdOffsetState.first?.id {
-     print(id)
-     } else {
-     print("failed to get id for HOLDOFFSET")
-     // becaue we need to create the first object
-     $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: isHoldButtonOn, offsetState: isOffsetButtonOn))
-     }
+    func populateHoldOffsetObject() {
+        if let id = holdOffsetState.first?.id {
+            //print(id)
+        } else {
+           // print("failed to get id for HOLDOFFSET")
+            // becaue we need to create the first object
+            $holdOffsetState.append(HoldOffsetState.createFirstObject(holdState: false, offsetState: false))
+        }
+        
+    }
      
-     }
-     */
 }
 struct GreyButtonSimple: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
