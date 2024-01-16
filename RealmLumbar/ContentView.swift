@@ -182,9 +182,10 @@ struct CrosshairView: View {
             ForEach(selectedLumbars) { lumbar in
                 Text("\(lumbar.title) - Axial: \(lumbar.axial), Sagital: \(lumbar.sagital)")
             }
-            ForEach(inputList) { input in
+            // debug all intruments
+            /*ForEach(inputList) { input in
                 Text("\(input.singlePeripheralUUID)")
-            }
+            }*/
             let newItem: String = items.first?.singlePeripheralUUID ?? "no item"
             Text("Selected: \(newItem)")
         }.onAppear() {
@@ -192,17 +193,11 @@ struct CrosshairView: View {
             populateInputListWithAvailableDevices()
         }
     }
-    
-    // todo: [ ] fix: save selcted item switchSelectedInputFrom(stringID:
-    // [X] show in this button view
-    // [X] update the  Crosshair UI
-    // [ ] create a function that populated the InputList with available UUID's
-    
+
     // replace 1 - 4 with actual id's
-    
     func displaySelectedInput() {
         let uuidName = InputList.displaySelectedInput()
-        print("\ngot selected item from model: \(uuidName)")
+       // print("\ngot selected item from model: \(uuidName)")
         selectedDeviceUUID = items.first?.singlePeripheralUUID ?? "No Selection"
     }
     
@@ -210,7 +205,7 @@ struct CrosshairView: View {
         // just the first one for now...
         // get the first
         guard let firstSwitch = InputList.getObjectWith(uuid: "Device 1").first else { return }
-        print("here is the first switch \(firstSwitch.singlePeripheralUUID)")
+        //print("here is the first switch \(firstSwitch.singlePeripheralUUID)")
         // update the object
         InputList.updateItemPerifUUID(item: firstSwitch, newUUID: "RJB6 1234.5678")
     }

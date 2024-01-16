@@ -18,10 +18,10 @@ class InputList: Object, Identifiable {
     }
     
     static func displaySelectedInput() -> String {
-        print("inside displaySelectedInput")
+        //print("inside displaySelectedInput")
         let selection = InputList.getSelectedItem()
         let uuidName = selection.first?.singlePeripheralUUID
-        print("\ngot selected item from model: \(uuidName)")
+        //print("\ngot selected item from model: \(uuidName)")
         return  uuidName ?? "No Device"
     }
     
@@ -76,7 +76,7 @@ class InputList: Object, Identifiable {
                 print("error getting \(id)")
                 return retrievedObject
             }
-            print("in func got this object back \(retrievedObject.singlePeripheralUUID)")
+            //print("in func got this object back \(retrievedObject.singlePeripheralUUID)")
             retrievedObject = objectFiltered
         }
         catch {
@@ -94,7 +94,7 @@ class InputList: Object, Identifiable {
     }
     
     static func updateItemPerifUUID(item: InputList, newUUID: String) {
-        print("in ")
+        //print("in ")
         do {
             let realm = try Realm()
             
