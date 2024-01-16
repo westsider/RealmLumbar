@@ -148,6 +148,18 @@ class LumbarList: Object, Identifiable {
         }
     }
     
+    static func deleteLumbarListRealm() {
+        
+        let realm = try! Realm()
+        // Retrieve all LumbarList objects
+        let lumbarListObjects = realm.objects(LumbarList.self)
+
+        // Perform a batch delete operation
+        try! realm.write {
+            realm.delete(lumbarListObjects)
+        }
+    }
+    
     static func deleteRealm() {
         let realm = try! Realm()
         try! realm.write {

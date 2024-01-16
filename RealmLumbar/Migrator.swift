@@ -14,7 +14,7 @@ class Migrator {
     init() {
         //updateSchema()
         //LumbarList.deleteRealm() // when changing databage - use first then test view
-        //deleteAndReInit()           // when changing databage - use second then test view
+        // deleteAndReInit()           // when changing databage - use second then test view
     }
     
     func deleteAndReInit() {

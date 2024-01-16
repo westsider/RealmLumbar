@@ -68,7 +68,7 @@ struct ContentView: View {
                             }
                     }
                     Button {
-                        LumbarList.deleteRealm()
+                        LumbarList.deleteLumbarListRealm()
                         generateLumbatListDefaults()
                     } label: {
                         Text("CLEAR ALL")
@@ -144,16 +144,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-//  [X] HOLDING AT - red
-//  [X] 61.5 - - boxed
-//  [X] test on device
-//  [X] func to get hold on offset and values from main view
-
-//  [X] OFFSET
-//  [X] when pressed save the current live values
-//  [ X add offset to live numbers
-
 
 struct CrosshairView: View {
     
@@ -239,9 +229,9 @@ struct CrosshairView: View {
             }
             
         }.onAppear() {
-            displaySelectedInput()
             populateInputListWithAvailableDevices()
             populateHoldOffsetObject()
+            displaySelectedInput()
         }
     }
     
