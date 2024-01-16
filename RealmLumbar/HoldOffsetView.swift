@@ -63,6 +63,21 @@ class HoldOffsetState: Object, Identifiable {
             print("An error occurred while updating the HoldOffsetState: \(error)")
         }
     }
+    
+    static func persistOffsetValues(id: ObjectId, axial: Double, sagittal: Double) {
+        
+        do {
+            let realm = try Realm()
+            if let item = realm.object(ofType: HoldOffsetState.self, forPrimaryKey: id) {
+                try realm.write {
+                    item.offsetValueAxial = axial
+                    item.offsetValueSagittal = sagittal
+                }
+            }
+        } catch {
+            print("An error occurred while updating the HoldOffsetState: \(error)")
+        }
+    }
 }
 
 

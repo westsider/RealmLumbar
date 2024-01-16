@@ -4,24 +4,6 @@
 //
 //  Created by Warren Hansen on 1/9/24.
 
-//  [X] Add left right
-//  [X] selected row is colored
-//  [X] filted left and right on list
-//  [X] add left/right when we add new object
-//  [ ] add a crosshair struct to set how its updated
-
-//  how do I pass selected row to crosshair? can I send the id?
-//  how do I pass in hold and offset?
-
-//  future
-//  how do I know what data stream is selected? need a var for selectedUUID
-//  how do I set hold or offset? need a var somewhere for offsetOn, hold on
-
-/*
- Friday
- Get selected lumbar persisting
- Pass that to crosshair
- */
 import SwiftUI
 import RealmSwift
 
@@ -163,10 +145,15 @@ struct ContentView: View {
     ContentView()
 }
 
-//  [ ] HOLDING AT - red
-//  [ ] 61.5 - - boxed
-//  [ ] later but have infrastructure
-//  [ ] final get hold on off and values from main view
+//  [X] HOLDING AT - red
+//  [X] 61.5 - - boxed
+//  [X] test on device
+//  [X] func to get hold on offset and values from main view
+
+//  [ ] OFFSET
+//  [ ] when pressed save the current live values
+//  [ ] add offset to live numbers
+
 
 struct CrosshairView: View {
     
@@ -233,6 +220,32 @@ struct CrosshairView: View {
             populateInputListWithAvailableDevices()
             populateHoldOffsetObject()
         }
+    }
+    
+
+    func getHoldStateFromMainView() {
+        
+        // MARK: - TODO: - get these values from the persusted main view values and test the functions
+        let holdFromMain: Bool = false
+        let offsetFromMain: Bool = false
+        let axialHold: Double = 20.0
+        let sagittalHold: Double = 40.0
+        let axialOffset: Double = 20.0
+        let sagittalOffset: Double = 40.0
+        
+        // if Hold is true from main view update button state and values with this func
+        guard let object = holdOffsetState.first else { return }
+        if holdFromMain {
+            HoldOffsetState.updateButtonState(id: object.id, isHoldButtonOn: holdFromMain, isOffsetButtonOn: false)
+            HoldOffsetState.persistHoldValues(id: object.id, axial: axialHold, sagittal: sagittalHold)
+        }
+        
+        // if Offset is true from main screen, update button state and values with this func
+        if offsetFromMain {
+            HoldOffsetState.updateButtonState(id: object.id, isHoldButtonOn: false, isOffsetButtonOn: offsetFromMain)
+            HoldOffsetState.persistOffsetValues(id: object.id, axial: axialOffset, sagittal: sagittalOffset)
+        }
+        
     }
     
     func updateHoldValues(axial: Double, sagittal: Double) {
