@@ -15,7 +15,7 @@ struct RealmLumbarApp: App {
     var body: some Scene {
         WindowGroup {
             //TestScreen()
-            ContentView()
+            LumbarListView()
             //let _ = print("\n\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path)\n")
         }
     }

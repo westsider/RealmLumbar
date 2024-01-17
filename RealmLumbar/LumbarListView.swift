@@ -7,7 +7,7 @@
 import SwiftUI
 import RealmSwift
 
-struct ContentView: View {
+struct LumbarListView: View {
     
     @ObservedResults(LumbarList.self) var lumbarList
     @State var leftSelected: Bool = true
@@ -99,7 +99,7 @@ struct ContentView: View {
                 //----------------------------
                 // this is the main view
                 //-----------------------------
-                CrosshairView()
+                CrosshairViewTestDisplay()
                 //----------------------------
                 // this is theinput switch
                 //-----------------------------
@@ -145,10 +145,10 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LumbarListView()
 }
 
-struct CrosshairView: View {
+struct CrosshairViewTestDisplay: View {
     
     @ObservedResults(LumbarList.self, where: { $0.isSelected == true }) var selectedLumbars
     
