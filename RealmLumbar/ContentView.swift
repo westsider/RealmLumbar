@@ -37,13 +37,15 @@ struct ContentView: View {
                     }
                     List {
                         ForEach(items, id: \.id) { item in
-                            LumbarRow(id: item.id)
-                                .tag(item.id)
-                                .contentShape(Rectangle()) //makes whole row tappable
-                                .onTapGesture {
-                                    self.selectedItemId = item.id
-                                }
-                                .listRowBackground(selectedItemId == item.id ? Color.blue.opacity(0.5) : Color.gray.opacity(0.2))
+                            if !items.isEmpty {
+                                LumbarRow(id: item.id)      // crash here when delete all added check
+                                    .tag(item.id)
+                                    .contentShape(Rectangle()) //makes whole row tappable
+                                    .onTapGesture {
+                                        self.selectedItemId = item.id
+                                    }
+                                    .listRowBackground(selectedItemId == item.id ? Color.blue.opacity(0.5) : Color.gray.opacity(0.2))
+                            }
                         }
                     }
                     .onChange(of: selectedItemId) { newItemId in
