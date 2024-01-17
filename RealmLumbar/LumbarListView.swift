@@ -9,13 +9,13 @@ import RealmSwift
 
 struct LumbarListView: View {
     
-    @ObservedResults(LumbarList.self) var lumbarList
+    @ObservedResults(LumbarItems.self) var lumbarList
     @State var leftSelected: Bool = true
     @State private var selectedItemId: ObjectId?
     
-    var items: Results<LumbarList> {
+    var items: Results<LumbarItems> {
         let realm = try! Realm()
-        return realm.objects(LumbarList.self).filter("leftSelected == %@", leftSelected)
+        return realm.objects(LumbarItems.self).filter("leftSelected == %@", leftSelected)
     }
     
     var body: some View {
@@ -58,12 +58,12 @@ struct LumbarListView: View {
                     
                     /// LEFT and RIGHT buttons
                     HStack {
-                        SelectButton(isSelected: $leftSelected,  text: "LEFT")
+                        SelectButtonAutoSize(isSelected: $leftSelected,  text: "LEFT")
                             .onTapGesture {
                                 leftSelected = true
                                 switchSideSelectsFirstLumbar()
                             }
-                        SelectButton(isSelected: $leftSelected.not, text: "RIGHT")
+                        SelectButtonAutoSize(isSelected: $leftSelected.not, text: "RIGHT")
                             .onTapGesture {
                                 leftSelected = false
                                 switchSideSelectsFirstLumbar()
@@ -71,7 +71,7 @@ struct LumbarListView: View {
                     }
                     /// clear all button
                     Button {
-                        LumbarList.deleteLumbarListRealm()
+                        LumbarItems.deleteLumbarListRealm()
                         generateLumbatListDefaults()
                     } label: {
                         Text("CLEAR ALL")
@@ -120,21 +120,21 @@ struct LumbarListView: View {
         }
     }
     
-    private func updateSeletedItem(_ item: LumbarList) {
-        LumbarList.removeIsSectedItem()
-        LumbarList.updateItemAsSelected(item: item)
+    private func updateSeletedItem(_ item: LumbarItems) {
+        LumbarItems.removeIsSectedItem()
+        LumbarItems.updateItemAsSelected(item: item)
     }
     
     
     func generateLumbatListDefaults()  {
         for i in 1...4 {
-            $lumbarList.append(LumbarList.generateDefaultObject(num: i))
+            $lumbarList.append(LumbarItems.generateDefaultObject(num: i))
         }
     }
     
     func newLumbarObject(leftOn: Bool)  {
         let num = items.count + 1
-        let retrievedObject = LumbarList()
+        let retrievedObject = LumbarItems()
         retrievedObject.title = "L\(num)"
         retrievedObject.axial = 10.0
         retrievedObject.sagital = 10.0
@@ -150,7 +150,7 @@ struct LumbarListView: View {
 
 struct CrosshairViewTestDisplay: View {
     
-    @ObservedResults(LumbarList.self, where: { $0.isSelected == true }) var selectedLumbars
+    @ObservedResults(LumbarItems.self, where: { $0.isSelected == true }) var selectedLumbars
     
     @ObservedResults(InputList.self) var inputList
     
@@ -315,7 +315,7 @@ struct GreyButtonSimple: ButtonStyle {
     }
 }
 
-struct SelectButton: View {
+struct SelectButtonAutoSize: View {
     
     @Binding var isSelected: Bool
     @State var text: String

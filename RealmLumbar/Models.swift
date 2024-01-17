@@ -8,7 +8,7 @@
 import RealmSwift
 import SwiftUI
 
-class LumbarList: Object, Identifiable {
+class LumbarItems: Object, Identifiable {
     
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
@@ -36,9 +36,9 @@ class LumbarList: Object, Identifiable {
         }
     }
     
-    static func getObject(id: ObjectId) -> LumbarList {
+    static func getObject(id: ObjectId) -> LumbarItems {
 
-        var retrievedObject = LumbarList()
+        var retrievedObject = LumbarItems()
         retrievedObject.title = "L1"
         retrievedObject.axial = 1.0
         retrievedObject.sagital = 1.0
@@ -47,7 +47,7 @@ class LumbarList: Object, Identifiable {
         
         do {
             let realm = try Realm()
-            guard let objectFiltered = realm.object(ofType: LumbarList.self, forPrimaryKey: id) else {
+            guard let objectFiltered = realm.object(ofType: LumbarItems.self, forPrimaryKey: id) else {
                 return retrievedObject
             }
             retrievedObject = objectFiltered
@@ -58,11 +58,11 @@ class LumbarList: Object, Identifiable {
         return retrievedObject
     }
     
-    static func updateItemAsSelected(item: LumbarList) {
+    static func updateItemAsSelected(item: LumbarItems) {
         do {
             let realm = try Realm()
             
-            if let lumbarToSelect = realm.object(ofType: LumbarList.self, forPrimaryKey: item.id) {
+            if let lumbarToSelect = realm.object(ofType: LumbarItems.self, forPrimaryKey: item.id) {
                 try realm.write {
                     lumbarToSelect.isSelected = true
                 }
@@ -86,21 +86,21 @@ class LumbarList: Object, Identifiable {
         }
     }
     
-    static func getSelectedItem() -> Results<LumbarList> {
-        var item: Results<LumbarList> {
+    static func getSelectedItem() -> Results<LumbarItems> {
+        var item: Results<LumbarItems> {
             let realm = try! Realm()
-            return realm.objects(LumbarList.self).filter("isSelected == %@", true)
+            return realm.objects(LumbarItems.self).filter("isSelected == %@", true)
         }
         //  print("Realm found Selected Item: ID: \(item.first?.id), AX: \(item.first?.axial), SG: \(item.first?.sagital)")
         
         return item
     }
     
-    static func generateDefaultObject(num: Int) -> LumbarList {
+    static func generateDefaultObject(num: Int) -> LumbarItems {
         
         switch num {
         case 1:
-            let retrievedObject = LumbarList()
+            let retrievedObject = LumbarItems()
             retrievedObject.title = "L1"
             retrievedObject.axial = 5.0
             retrievedObject.sagital = 10.0
@@ -108,28 +108,28 @@ class LumbarList: Object, Identifiable {
             retrievedObject.isSelected = true
             return retrievedObject
         case 2:
-            let retrievedObject2 = LumbarList()
+            let retrievedObject2 = LumbarItems()
             retrievedObject2.title = "L2"
             retrievedObject2.axial = 15.0
             retrievedObject2.sagital = 20.0
             retrievedObject2.leftSelected = true
             return retrievedObject2
         case 3:
-            let retrievedObject3 = LumbarList()
+            let retrievedObject3 = LumbarItems()
             retrievedObject3.title = "L1"
             retrievedObject3.axial = 30.0
             retrievedObject3.sagital = 35.0
             retrievedObject3.leftSelected = false
             return retrievedObject3
         case 4:
-            let retrievedObject4 = LumbarList()
+            let retrievedObject4 = LumbarItems()
             retrievedObject4.title = "L2"
             retrievedObject4.axial = 40.0
             retrievedObject4.sagital = 45.0
             retrievedObject4.leftSelected = false
             return retrievedObject4
         default:
-            let retrievedObject = LumbarList()
+            let retrievedObject = LumbarItems()
             retrievedObject.title = "L1"
             retrievedObject.axial = 5.0
             retrievedObject.sagital = 10.0
@@ -143,7 +143,7 @@ class LumbarList: Object, Identifiable {
         
         let realm = try! Realm()
         // Retrieve all LumbarList objects
-        let lumbarListObjects = realm.objects(LumbarList.self)
+        let lumbarListObjects = realm.objects(LumbarItems.self)
 
         // Perform a batch delete operation
         try! realm.write {

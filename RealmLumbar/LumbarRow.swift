@@ -13,7 +13,7 @@ struct LumbarRow: View {
     var id: ObjectId
     
     /// persisted object
-    var listObject: LumbarList {
+    var listObject: LumbarItems {
         return getObject(funcId: id)
     }
     
@@ -80,11 +80,11 @@ struct LumbarRow: View {
     }
     
     private func persistObject(funcId: ObjectId) {
-        LumbarList.persistObject(id: funcId, name: lumabeName, ax: axial, sg: saggital)
+        LumbarItems.persistObject(id: funcId, name: lumabeName, ax: axial, sg: saggital)
     }
     
-    private func getObject(funcId: ObjectId) -> LumbarList {
-        return LumbarList.getObject(id: funcId)
+    private func getObject(funcId: ObjectId) -> LumbarItems {
+        return LumbarItems.getObject(id: funcId)
     }
 }
 
