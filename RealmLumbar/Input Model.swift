@@ -43,11 +43,11 @@ class InputList: Object, Identifiable {
         do {
             let realm = try! Realm()
 
-            // Retrieve all objects of the InputList class
+            /// Retrieve all objects of the InputList class
             let inputLists = realm.objects(InputList.self)
 
-            // Open a Realm write transaction
-            try! realm.write {
+            /// Open a Realm write transaction
+            try realm.write {
                 // Loop through each object and set isSelected to false
                 for inputList in inputLists {
                     inputList.isSelectd = false
@@ -94,7 +94,7 @@ class InputList: Object, Identifiable {
     }
     
     static func updateItemPerifUUID(item: InputList, newUUID: String) {
-        //print("in ")
+
         do {
             let realm = try Realm()
             
@@ -113,38 +113,29 @@ class InputList: Object, Identifiable {
         switch num {
         case 1:
             let defaultObject = InputList()
-            //defaultObject._id = "Device 1"
             defaultObject.singlePeripheralUUID = "Device 1"
             defaultObject.isSelectd = true
             return defaultObject
         case 2:
             let defaultObject2 = InputList()
-            //defaultObject2._id = "Device 2"
             defaultObject2.singlePeripheralUUID = "Device 2"
             defaultObject2.isSelectd = false
             return defaultObject2
         case 3:
             let defaultObject3 = InputList()
-            //defaultObject3._id = "Device 3"
             defaultObject3.singlePeripheralUUID = "Device 3"
             defaultObject3.isSelectd = false
             return defaultObject3
         case 4:
             let defaultObject4 = InputList()
-            //defaultObject4._id = "Device 4"
             defaultObject4.singlePeripheralUUID = "Device 4"
             defaultObject4.isSelectd = false
             return defaultObject4
         default:
             let defaultObject = InputList()
-            //defaultObject._id = "Device 1"
             defaultObject.singlePeripheralUUID = "Device 1"
             defaultObject.isSelectd = true
             return defaultObject
         }
-    }
-    
-    func replaceUUID() {
-        
     }
 }

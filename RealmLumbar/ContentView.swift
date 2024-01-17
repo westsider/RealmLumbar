@@ -69,6 +69,7 @@ struct ContentView: View {
                                 switchSideSelectsFirstLumbar()
                             }
                     }
+                    /// clear all button
                     Button {
                         LumbarList.deleteLumbarListRealm()
                         generateLumbatListDefaults()

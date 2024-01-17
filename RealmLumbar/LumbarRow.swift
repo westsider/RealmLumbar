@@ -12,12 +12,12 @@ struct LumbarRow: View {
     
     var id: ObjectId
     
-    // persisted object
+    /// persisted object
     var listObject: LumbarList {
         return getObject(funcId: id)
     }
     
-    // textfeild vars
+    /// textfeild vars
     @State private var lumabeName: String = ""
     @State private var axial: String = ""
     @State private var saggital: String = ""
@@ -35,7 +35,7 @@ struct LumbarRow: View {
                         if focused {
                             lumabeName = ""
                         } else {
-                            // persist name
+                            /// persist name
                             persistObject(funcId: id)
                         }
                     }
@@ -50,7 +50,7 @@ struct LumbarRow: View {
                         if focused {
                             axial = ""
                         } else {
-                            // persist axial
+                            /// persist axial
                             persistObject(funcId: id)
                         }
                     }
@@ -66,7 +66,7 @@ struct LumbarRow: View {
                         if focused {
                             saggital = ""
                         } else {
-                            // persist saggital
+                            /// persist saggital
                             persistObject(funcId: id)
                         }
                     }

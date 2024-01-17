@@ -20,10 +20,7 @@ class LumbarList: Object, Identifiable {
     override class func primaryKey() -> String? {
         "id"
     }
-    
 
-    
-    
     static func persistObject(id: ObjectId, name: String, ax: String, sg: String) {
         do {
             let realm = try Realm()
@@ -40,9 +37,7 @@ class LumbarList: Object, Identifiable {
     }
     
     static func getObject(id: ObjectId) -> LumbarList {
-        
-        //let item = LumbarList.getSelected(itemId: id)
-        
+
         var retrievedObject = LumbarList()
         retrievedObject.title = "L1"
         retrievedObject.axial = 1.0
@@ -62,7 +57,6 @@ class LumbarList: Object, Identifiable {
         }
         return retrievedObject
     }
-    
     
     static func updateItemAsSelected(item: LumbarList) {
         do {
@@ -87,8 +81,6 @@ class LumbarList: Object, Identifiable {
             try realm.write {
                 itemToDeSelect.isSelected = false
             }
-            //print("item updated to isSelected")
-            // }
         } catch {
             print("An error occurred while updating the LumbarList: \(error)")
         }
@@ -99,8 +91,7 @@ class LumbarList: Object, Identifiable {
             let realm = try! Realm()
             return realm.objects(LumbarList.self).filter("isSelected == %@", true)
         }
-        
-//          print("Realm found Selected Item: ID: \(item.first?.id), AX: \(item.first?.axial), SG: \(item.first?.sagital)")
+        //  print("Realm found Selected Item: ID: \(item.first?.id), AX: \(item.first?.axial), SG: \(item.first?.sagital)")
         
         return item
     }

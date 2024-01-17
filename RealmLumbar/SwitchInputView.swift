@@ -31,7 +31,6 @@ struct SegmentedSwitchView: View {
             .pickerStyle(SegmentedPickerStyle())
             .padding()
             .onChange(of: selectedInput) { newIndex in
-               // print(" onChange selectedInput: \(selectedInput.singlePeripheralUUID)")
                 selectNewInputInModel()
                 displaySelectedInput()
             }
@@ -41,22 +40,18 @@ struct SegmentedSwitchView: View {
             }
             displaySelectedInput()
         }
-        //Text("Selected UUID: \(selectedDeviceUUID)").padding()
     }
     
     func displaySelectedInput() {
         let uuidName = InputList.displaySelectedInput()
-        //print("\ngot selected item from model: \(uuidName)")
         selectedDeviceUUID = uuidName
     }
     
     func selectNewInputInModel() {
-        //print("inside displaySelectedInput")
         InputList.deSelectAllInputs()
-        //print("unpate next")
         InputList.updateSelectedUUID(item: selectedInput, isSelected: true)
-        
     }
+    
     func generateInputListDefaults()  {
         for i in 1...4 {
             $inputList.append(InputList.generateDefaultObject(num: i))

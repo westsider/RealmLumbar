@@ -13,7 +13,7 @@ class Migrator {
     
     init() {
         //updateSchema()
-        //LumbarList.deleteRealm() // when changing databage - use first then test view
+        //LumbarList.deleteRealm()      // when changing databage - use first then test view
         // deleteAndReInit()           // when changing databage - use second then test view
     }
     
@@ -59,16 +59,5 @@ class Migrator {
         let _ = try! Realm()
         
     }
-    
 }
-
-struct TestScreen: View {
-    var body: some View {
-        Text("Testing")
-    }
-}
-
-//#Preview {
-//    TestScreen()
-//}
 
