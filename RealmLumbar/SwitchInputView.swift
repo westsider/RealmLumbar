@@ -24,17 +24,17 @@ struct SegmentedSwitchView: View {
         VStack {
             Picker("Segmented Switch", selection: $selectedInput) {
                 ForEach(inputList) { index in
-                    Text("\(index.singlePeripheralUUID)")
-                        .tag(index)
+                    Text("\(index.singlePeripheralUUID)").tag(index.id)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.segmented)
             .padding()
             .onChange(of: selectedInput) { newIndex in
                 selectNewInputInModel()
                 displaySelectedInput()
             }
-        }.onAppear() {
+        }
+        .onAppear() {
             if inputList.isEmpty {
                 generateInputListDefaults()
             }
@@ -59,6 +59,22 @@ struct SegmentedSwitchView: View {
     }
 }
 
+//struct PickerView: View {
+//    var color: UIColor
+//    @State var pickerSelection = 0
+//
+//    var body: some View {
+//        Picker(selection: $pickerSelection, label: Text("")) {
+//            Text("Active").tag(0).foregroundColor(Color.white)
+//            Text("Completed").tag(1)
+//        }.pickerStyle(SegmentedPickerStyle()).foregroundColor(Color.orange)
+//        .onAppear {
+//            UISegmentedControl.appearance().tintColor = color
+//        }
+//    }
+//}
+
 #Preview {
     SegmentedSwitchView()
+    //PickerView(color: .orange)
 }

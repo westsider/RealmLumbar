@@ -103,7 +103,8 @@ struct LumbarListView: View {
                 //----------------------------
                 // this is theinput switch
                 //-----------------------------
-                SegmentedSwitchView()
+                //SegmentedSwitchView()
+                BasicPickerView()
                 //----------------------------
                 // this is hold offset switches
                 //-----------------------------

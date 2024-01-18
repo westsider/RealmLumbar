@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9814AC752B59744F006EECEB /* SwitchBlueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9814AC742B59744F006EECEB /* SwitchBlueView.swift */; };
+		9814AC772B597C51006EECEB /* BasicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9814AC762B597C51006EECEB /* BasicPickerView.swift */; };
 		981FB69D2B56C50B000D325B /* HoldOffsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981FB69C2B56C50B000D325B /* HoldOffsetView.swift */; };
 		983C9C6D2B55DE5D00872D03 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C9C6C2B55DE5D00872D03 /* TestView.swift */; };
 		986720CD2B4EFFB900745B7A /* LumbarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986720CC2B4EFFB900745B7A /* LumbarRow.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9814AC742B59744F006EECEB /* SwitchBlueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchBlueView.swift; sourceTree = "<group>"; };
+		9814AC762B597C51006EECEB /* BasicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPickerView.swift; sourceTree = "<group>"; };
 		981FB69C2B56C50B000D325B /* HoldOffsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldOffsetView.swift; sourceTree = "<group>"; };
 		983C9C6C2B55DE5D00872D03 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		986720CC2B4EFFB900745B7A /* LumbarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumbarRow.swift; sourceTree = "<group>"; };
@@ -71,7 +75,9 @@
 			children = (
 				986DAAB82B4DEAC400C3B7D5 /* RealmLumbarApp.swift */,
 				986DAABA2B4DEAC400C3B7D5 /* LumbarListView.swift */,
+				9814AC762B597C51006EECEB /* BasicPickerView.swift */,
 				989894792B51AAFB005A6682 /* SwitchInputView.swift */,
+				9814AC742B59744F006EECEB /* SwitchBlueView.swift */,
 				981FB69C2B56C50B000D325B /* HoldOffsetView.swift */,
 				986720CC2B4EFFB900745B7A /* LumbarRow.swift */,
 				986DAACB2B4DEB1800C3B7D5 /* Models.swift */,
@@ -169,8 +175,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9814AC752B59744F006EECEB /* SwitchBlueView.swift in Sources */,
 				986DAACC2B4DEB1800C3B7D5 /* Models.swift in Sources */,
 				9898947C2B51B3C8005A6682 /* Input Model.swift in Sources */,
+				9814AC772B597C51006EECEB /* BasicPickerView.swift in Sources */,
 				9898947A2B51AAFB005A6682 /* SwitchInputView.swift in Sources */,
 				986DAABB2B4DEAC400C3B7D5 /* LumbarListView.swift in Sources */,
 				981FB69D2B56C50B000D325B /* HoldOffsetView.swift in Sources */,

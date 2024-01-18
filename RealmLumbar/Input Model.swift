@@ -26,12 +26,15 @@ class InputList: Object, Identifiable {
     }
     
     static func updateSelectedUUID(item: InputList, isSelected: Bool) {
+        print("updateSelectedUUID")
         do {
             let realm = try Realm()
             
             if let inputToChange = realm.object(ofType: InputList.self, forPrimaryKey: item.id) {
+                print("trying to write")
                 try realm.write {
                     inputToChange.isSelectd = isSelected
+                    print("wrote")
                 }
             }
         } catch {
@@ -113,29 +116,41 @@ class InputList: Object, Identifiable {
         switch num {
         case 1:
             let defaultObject = InputList()
-            defaultObject.singlePeripheralUUID = "Device 1"
+            defaultObject.singlePeripheralUUID = "RJB6 1234.5678"
             defaultObject.isSelectd = true
             return defaultObject
         case 2:
             let defaultObject2 = InputList()
-            defaultObject2.singlePeripheralUUID = "Device 2"
+            defaultObject2.singlePeripheralUUID = "INPUT 2"
             defaultObject2.isSelectd = false
             return defaultObject2
         case 3:
             let defaultObject3 = InputList()
-            defaultObject3.singlePeripheralUUID = "Device 3"
+            defaultObject3.singlePeripheralUUID = "INPUT 3"
             defaultObject3.isSelectd = false
             return defaultObject3
         case 4:
             let defaultObject4 = InputList()
-            defaultObject4.singlePeripheralUUID = "Device 4"
+            defaultObject4.singlePeripheralUUID = "INPUT 4"
             defaultObject4.isSelectd = false
             return defaultObject4
         default:
             let defaultObject = InputList()
-            defaultObject.singlePeripheralUUID = "Device 1"
+            defaultObject.singlePeripheralUUID = "INPUT 1"
             defaultObject.isSelectd = true
             return defaultObject
+        }
+    }
+    
+    static func deleteInputListRealm() {
+        
+        let realm = try! Realm()
+        // Retrieve all LumbarList objects
+        let lumbarListObjects = realm.objects(InputList.self)
+
+        // Perform a batch delete operation
+        try! realm.write {
+            realm.delete(lumbarListObjects)
         }
     }
 }
